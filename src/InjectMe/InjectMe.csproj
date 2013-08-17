@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29A6D213-52D5-4AB0-99D7-526C87561237}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InjectMe</RootNamespace>
+    <AssemblyName>InjectMe</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseIntermediateOutputPath>obj\$(Platform)\net45\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\debug\net45\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\release\net45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activation\ServiceLoaderActivator.cs">
+      <DependentUpon>IActivator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\ServiceLoaderActivatorConfiguration.cs" />
+    <Compile Include="Registration\ServiceLoaderScanConventionExtensions.cs" />
+    <Compile Include="Registration\ServiceLoaderScanConvention.cs" />
+    <Compile Include="Activation\IServiceLoader.cs" />
+    <Compile Include="Activation\IActivatorGroup.cs" />
+    <Compile Include="Activation\IInjectionContext.cs" />
+    <Compile Include="Caching\HttpRequestScope.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Caching\HttpRequestScopeAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Caching\HttpSessionScope.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Caching\HttpSessionScopeAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Caching\IServiceScope.cs" />
+    <Compile Include="Caching\ServiceScope.cs" />
+    <Compile Include="Caching\ServiceScopeAttribute.cs" />
+    <Compile Include="Caching\SingletonScope.cs" />
+    <Compile Include="Caching\SingletonScopeAttribute.cs" />
+    <Compile Include="Caching\TransientScope.cs" />
+    <Compile Include="Caching\TransientScopeAttribute.cs" />
+    <Compile Include="Construction\ConstructionFactorySettings.cs" />
+    <Compile Include="Construction\TypeExtensions.cs" />
+    <Compile Include="Activation\FactoryActivator.cs">
+      <DependentUpon>IActivator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Activation\ArrayActivator.cs">
+      <DependentUpon>IActivator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\ActivatorConfigurationAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\HttpContextNotSetException.cs" />
+    <Compile Include="Exceptions\HttpSessionNotSetException.cs" />
+    <Compile Include="Registration\AssemblyScanner_AppDomain.cs" />
+    <Compile Include="Registration\FactoryActivatorRegistrationExtensions_http.cs" />
+    <Compile Include="Registration\FluentRegistration.cs" />
+    <Compile Include="Registration\IFactoryActivatorRegistration.cs" />
+    <Compile Include="Registration\IFluentConfiguration.cs" />
+    <Compile Include="Registration\IFluentRegistration.cs" />
+    <Compile Include="Registration\IInstanceActivatorRegistration.cs" />
+    <Compile Include="Registration\InstanceActivatorRegistration.cs" />
+    <Compile Include="Registration\InstanceActivatorRegistrationExtensions.cs" />
+    <Compile Include="Registration\IActivatorConfiguration.cs" />
+    <Compile Include="Registration\ContainerConfiguration.cs" />
+    <Compile Include="Registration\BasicScanConvention.cs">
+      <DependentUpon>IScanConvention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\BasicScanConventionsExtensions.cs">
+      <DependentUpon>IScanConvention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\IScanConvention.cs" />
+    <Compile Include="Caching\IServiceCache.cs" />
+    <Compile Include="Caching\DictionaryServiceCache.cs" />
+    <Compile Include="Container.cs">
+      <DependentUpon>IContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Construction\ConstructionFactory.cs" />
+    <Compile Include="Construction\DelegateFactory.cs" />
+    <Compile Include="Construction\IFactory.cs" />
+    <Compile Include="Exceptions\NoValidConstructorFoundException.cs" />
+    <Compile Include="Exceptions\ActivatorAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\ServiceCouldNotBeCreatedException.cs" />
+    <Compile Include="Exceptions\ServiceNotRegisteredException.cs" />
+    <Compile Include="IContainer.cs" />
+    <Compile Include="Activation\InjectionContext.cs">
+      <DependentUpon>IInjectionContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IServiceLocator.cs" />
+    <Compile Include="Activation\FuncActivator.cs">
+      <DependentUpon>IActivator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\IContainerConfiguration.cs" />
+    <Compile Include="Activation\InstanceActivator.cs">
+      <DependentUpon>IActivator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\AssemblyScanner.cs" />
+    <Compile Include="Registration\IAssemblyScanner.cs" />
+    <Compile Include="Registration\IActivatorRegistration.cs" />
+    <Compile Include="Activation\IActivator.cs" />
+    <Compile Include="Activation\LazyActivator.cs">
+      <DependentUpon>IActivator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\PreventAutomaticRegistrationAttribute.cs" />
+    <Compile Include="Registration\FactoryActivatorRegistration.cs" />
+    <Compile Include="Registration\FactoryActivatorRegistrationExtensions.cs" />
+    <Compile Include="Activation\ActivatorGroup.cs">
+      <DependentUpon>IActivatorGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\TypedServiceExtensions.cs" />
+    <Compile Include="Registration\TypeExtensions.cs" />
+    <Compile Include="ServiceIdentity.cs" />
+    <Compile Include="ServiceLocator.cs">
+      <DependentUpon>IServiceLocator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceExtensions.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Extensions\SerializationExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D987CFE7-BD5D-412C-9ED9-A7B5CA602FAD}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InjectMe</RootNamespace>
+    <AssemblyName>InjectMe</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <BaseIntermediateOutputPath>obj\$(Platform)\wp8\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\debug\wp8\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\release\wp8\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug\WindowsPhone\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release\WindowsPhone\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug\WindowsPhone\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release\WindowsPhone\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Activation\ActivatorGroup.cs" />
+    <Compile Include="Activation\ArrayActivator.cs" />
+    <Compile Include="Activation\FactoryActivator.cs" />
+    <Compile Include="Activation\FuncActivator.cs" />
+    <Compile Include="Activation\IActivator.cs" />
+    <Compile Include="Activation\IActivatorGroup.cs" />
+    <Compile Include="Activation\IInjectionContext.cs" />
+    <Compile Include="Activation\InjectionContext.cs" />
+    <Compile Include="Activation\InstanceActivator.cs" />
+    <Compile Include="Activation\IServiceLoader.cs" />
+    <Compile Include="Activation\LazyActivator.cs" />
+    <Compile Include="Activation\ServiceLoaderActivator.cs" />
+    <Compile Include="Caching\DictionaryServiceCache.cs" />
+    <Compile Include="Caching\IServiceCache.cs" />
+    <Compile Include="Caching\IServiceScope.cs" />
+    <Compile Include="Caching\ServiceScope.cs" />
+    <Compile Include="Caching\ServiceScopeAttribute.cs" />
+    <Compile Include="Caching\SingletonScope.cs" />
+    <Compile Include="Caching\SingletonScopeAttribute.cs" />
+    <Compile Include="Caching\TransientScope.cs" />
+    <Compile Include="Caching\TransientScopeAttribute.cs" />
+    <Compile Include="Construction\ConstructionFactory.cs" />
+    <Compile Include="Construction\ConstructionFactorySettings.cs" />
+    <Compile Include="Construction\DelegateFactory.cs" />
+    <Compile Include="Construction\IFactory.cs" />
+    <Compile Include="Construction\TypeExtensions.cs" />
+    <Compile Include="Container.cs" />
+    <Compile Include="Exceptions\ActivatorAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\ActivatorConfigurationAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\NoValidConstructorFoundException.cs" />
+    <Compile Include="Exceptions\ServiceCouldNotBeCreatedException.cs" />
+    <Compile Include="Exceptions\ServiceNotRegisteredException.cs" />
+    <Compile Include="IContainer.cs" />
+    <Compile Include="IServiceLocator.cs" />
+    <Compile Include="Registration\AssemblyScanner.cs" />
+    <Compile Include="Registration\AssemblyScanner_AppDomain.cs" />
+    <Compile Include="Registration\BasicScanConvention.cs">
+      <DependentUpon>IScanConvention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\BasicScanConventionsExtensions.cs">
+      <DependentUpon>IScanConvention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\ContainerConfiguration.cs" />
+    <Compile Include="Registration\FactoryActivatorRegistration.cs" />
+    <Compile Include="Registration\FactoryActivatorRegistrationExtensions.cs" />
+    <Compile Include="Registration\FluentRegistration.cs" />
+    <Compile Include="Registration\IActivatorConfiguration.cs" />
+    <Compile Include="Registration\IActivatorRegistration.cs" />
+    <Compile Include="Registration\IAssemblyScanner.cs" />
+    <Compile Include="Registration\IContainerConfiguration.cs" />
+    <Compile Include="Registration\IFactoryActivatorRegistration.cs" />
+    <Compile Include="Registration\IFluentConfiguration.cs" />
+    <Compile Include="Registration\IFluentRegistration.cs" />
+    <Compile Include="Registration\IInstanceActivatorRegistration.cs" />
+    <Compile Include="Registration\InstanceActivatorRegistration.cs" />
+    <Compile Include="Registration\InstanceActivatorRegistrationExtensions.cs" />
+    <Compile Include="Registration\IScanConvention.cs" />
+    <Compile Include="Registration\PreventAutomaticRegistrationAttribute.cs" />
+    <Compile Include="Registration\ServiceLoaderActivatorConfiguration.cs" />
+    <Compile Include="Registration\ServiceLoaderScanConvention.cs" />
+    <Compile Include="Registration\ServiceLoaderScanConventionExtensions.cs" />
+    <Compile Include="Registration\TypedServiceExtensions.cs" />
+    <Compile Include="Registration\TypeExtensions.cs" />
+    <Compile Include="ServiceExtensions.cs" />
+    <Compile Include="ServiceIdentity.cs" />
+    <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
+    <Compile Include="Extensions\SerializationExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

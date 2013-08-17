@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>InjectMe.WebApi</id>
+    <version>0.0</version>
+    <title>InjectMe WebApi</title>
+    <authors>Tobias Persson</authors>
+    <owners>Tobias Persson</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Library for .Net development.</description>
+    <copyright>Copyright 2013 © Tobias Persson. All rights reserved.</copyright>
+    <tags>Dependency Injection</tags>
+    <dependencies>
+      <dependency id="InjectMe.Web" version="[0.5,1.0)" />
+      <dependency id="Microsoft.AspNet.WebApi.WebHost" version="[4.0.20710.0, 4.1)" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="InjectMe.WebApi\bin\release\InjectMe.WebAPi.*" target="lib" />
+  </files>
+</package>
