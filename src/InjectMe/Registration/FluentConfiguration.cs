@@ -3,24 +3,24 @@ using System.Collections.Generic;
 
 namespace InjectMe.Registration
 {
-    public class FluentRegistration<TService> :
-        FluentRegistration,
-        IFluentRegistration<TService>
+    public class FluentConfiguration<TService> :
+        FluentConfiguration,
+        IFluentConfiguration<TService>
     {
-        public FluentRegistration(string serviceName, Queue<IActivatorConfiguration> activatorConfigurations)
+        public FluentConfiguration(string serviceName, Queue<IActivatorConfiguration> activatorConfigurations)
             : base(new ServiceIdentity(typeof(TService), serviceName), activatorConfigurations)
         {
         }
     }
 
-    public class FluentRegistration : IFluentRegistration
+    public class FluentConfiguration : IFluentConfiguration
     {
         private readonly Queue<IActivatorConfiguration> _activatorConfigurations;
         private IActivatorConfiguration _activatorConfiguration;
 
         public ServiceIdentity Identity { get; private set; }
 
-        public FluentRegistration(ServiceIdentity identity, Queue<IActivatorConfiguration> activatorConfigurations)
+        public FluentConfiguration(ServiceIdentity identity, Queue<IActivatorConfiguration> activatorConfigurations)
         {
             if (identity == null)
                 throw new ArgumentNullException("identity");

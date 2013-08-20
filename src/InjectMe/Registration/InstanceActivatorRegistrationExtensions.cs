@@ -22,7 +22,7 @@ namespace InjectMe.Registration
             return configuration.Register(activatorConfiguration);
         }
 
-        public static IInstanceActivatorRegistration UsingInstance(this IFluentRegistration fluentRegistration, object instance)
+        public static IInstanceActivatorRegistration UsingInstance(this IFluentConfiguration fluentRegistration, object instance)
         {
             var registration = new InstanceActivatorRegistration<object>(fluentRegistration.Identity, instance);
 
@@ -31,12 +31,12 @@ namespace InjectMe.Registration
             return registration;
         }
 
-        public static IInstanceActivatorRegistration<TService> UsingInstance<TService>(this IFluentRegistration<TService> fluentRegistration, TService instance)
+        public static IInstanceActivatorRegistration<TService> UsingInstance<TService>(this IFluentConfiguration<TService> fluentConfiguration, TService instance)
             where TService : class
         {
-            var registration = new InstanceActivatorRegistration<TService>(fluentRegistration.Identity, instance);
+            var registration = new InstanceActivatorRegistration<TService>(fluentConfiguration.Identity, instance);
 
-            fluentRegistration.Configuration = registration;
+            fluentConfiguration.Configuration = registration;
 
             return registration;
         }

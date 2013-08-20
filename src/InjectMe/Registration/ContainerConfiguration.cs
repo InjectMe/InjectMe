@@ -17,7 +17,7 @@ namespace InjectMe.Registration
             return this;
         }
 
-        public IContainerConfiguration Register(Type serviceType, Action<IFluentRegistration> action)
+        public IContainerConfiguration Register(Type serviceType, Action<IFluentConfiguration> action)
         {
             if (action == null)
                 throw new ArgumentNullException("action");
@@ -29,7 +29,7 @@ namespace InjectMe.Registration
             return this;
         }
 
-        public IContainerConfiguration Register<TService>(Action<IFluentRegistration<TService>> action)
+        public IContainerConfiguration Register<TService>(Action<IFluentConfiguration<TService>> action)
             where TService : class
         {
             if (action == null)
@@ -42,22 +42,22 @@ namespace InjectMe.Registration
             return this;
         }
 
-        public IFluentRegistration Register(ServiceIdentity identity)
+        public IFluentConfiguration Register(ServiceIdentity identity)
         {
-            return new FluentRegistration(identity, _activatorConfigurations);
+            return new FluentConfiguration(identity, _activatorConfigurations);
         }
 
-        public IFluentRegistration Register(Type serviceType, string serviceName = null)
+        public IFluentConfiguration Register(Type serviceType, string serviceName = null)
         {
             var identity = new ServiceIdentity(serviceType, serviceName);
 
-            return new FluentRegistration(identity, _activatorConfigurations);
+            return new FluentConfiguration(identity, _activatorConfigurations);
         }
 
-        public IFluentRegistration<TService> Register<TService>(string serviceName = null)
+        public IFluentConfiguration<TService> Register<TService>(string serviceName = null)
             where TService : class
         {
-            return new FluentRegistration<TService>(serviceName, _activatorConfigurations);
+            return new FluentConfiguration<TService>(serviceName, _activatorConfigurations);
         }
 
         public IContainerConfiguration Scan(Action<IAssemblyScanner> scanner)

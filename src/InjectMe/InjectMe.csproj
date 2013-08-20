@@ -47,6 +47,9 @@
       <DependentUpon>IActivator.cs</DependentUpon>
     </Compile>
     <Compile Include="Exceptions\ActivatorGroupAlreadyRegisteredException.cs" />
+    <Compile Include="Registration\FluentConfiguration.cs">
+      <DependentUpon>IFluentConfiguration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registration\ServiceLoaderActivatorConfiguration.cs" />
     <Compile Include="Registration\ServiceLoaderScanConventionExtensions.cs" />
     <Compile Include="Registration\ServiceLoaderScanConvention.cs" />
@@ -85,10 +88,8 @@
     <Compile Include="Exceptions\HttpSessionNotSetException.cs" />
     <Compile Include="Registration\AssemblyScanner_AppDomain.cs" />
     <Compile Include="Registration\FactoryActivatorRegistrationExtensions_http.cs" />
-    <Compile Include="Registration\FluentRegistration.cs" />
     <Compile Include="Registration\IFactoryActivatorRegistration.cs" />
     <Compile Include="Registration\IFluentConfiguration.cs" />
-    <Compile Include="Registration\IFluentRegistration.cs" />
     <Compile Include="Registration\IInstanceActivatorRegistration.cs" />
     <Compile Include="Registration\InstanceActivatorRegistration.cs" />
     <Compile Include="Registration\InstanceActivatorRegistrationExtensions.cs" />

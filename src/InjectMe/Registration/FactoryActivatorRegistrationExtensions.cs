@@ -55,29 +55,29 @@ namespace InjectMe.Registration
             return RegisterScoped<TService, TConcrete>(configuration, TransientScope, serviceName);
         }
 
-        public static IFactoryActivatorRegistration AsSingleton(this IFluentRegistration fluentRegistration)
+        public static IFactoryActivatorRegistration AsSingleton(this IFluentConfiguration fluentRegistration)
         {
             return InScope(fluentRegistration, SingletonScope);
         }
 
-        public static IFactoryActivatorRegistration<TService> AsSingleton<TService>(this IFluentRegistration<TService> fluentRegistration)
+        public static IFactoryActivatorRegistration<TService> AsSingleton<TService>(this IFluentConfiguration<TService> fluentConfiguration)
             where TService : class
         {
-            return InScope(fluentRegistration, SingletonScope);
+            return InScope(fluentConfiguration, SingletonScope);
         }
 
-        public static IFactoryActivatorRegistration AsTransient(this IFluentRegistration fluentRegistration)
+        public static IFactoryActivatorRegistration AsTransient(this IFluentConfiguration fluentRegistration)
         {
             return InScope(fluentRegistration, TransientScope);
         }
 
-        public static IFactoryActivatorRegistration<TService> AsTransient<TService>(this IFluentRegistration<TService> fluentRegistration)
+        public static IFactoryActivatorRegistration<TService> AsTransient<TService>(this IFluentConfiguration<TService> fluentConfiguration)
             where TService : class
         {
-            return InScope(fluentRegistration, TransientScope);
+            return InScope(fluentConfiguration, TransientScope);
         }
 
-        public static IFactoryActivatorRegistration InScope(this IFluentRegistration fluentRegistration, IServiceScope serviceScope)
+        public static IFactoryActivatorRegistration InScope(this IFluentConfiguration fluentRegistration, IServiceScope serviceScope)
         {
             var registration = new FactoryActivatorRegistration<object>(fluentRegistration.Identity, serviceScope);
 
@@ -86,11 +86,11 @@ namespace InjectMe.Registration
             return registration;
         }
 
-        public static IFactoryActivatorRegistration<TService> InScope<TService>(this IFluentRegistration<TService> fluentRegistration, IServiceScope serviceScope)
+        public static IFactoryActivatorRegistration<TService> InScope<TService>(this IFluentConfiguration<TService> fluentConfiguration, IServiceScope serviceScope)
         {
-            var registration = new FactoryActivatorRegistration<TService>(fluentRegistration.Identity, serviceScope);
+            var registration = new FactoryActivatorRegistration<TService>(fluentConfiguration.Identity, serviceScope);
 
-            fluentRegistration.Configuration = registration;
+            fluentConfiguration.Configuration = registration;
 
             return registration;
         }
