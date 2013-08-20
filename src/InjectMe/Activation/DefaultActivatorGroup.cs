@@ -5,13 +5,13 @@ using InjectMe.Extensions;
 
 namespace InjectMe.Activation
 {
-    public class ActivatorGroup : IActivatorGroup
+    public class DefaultActivatorGroup : IActivatorGroup
     {
         private readonly IDictionary<ServiceIdentity, IActivator> _activators = new Dictionary<ServiceIdentity, IActivator>();
 
         public Type ServiceType { get; private set; }
 
-        public ActivatorGroup(Type serviceType)
+        public DefaultActivatorGroup(Type serviceType)
         {
             ServiceType = serviceType;
         }

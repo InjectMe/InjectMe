@@ -46,6 +46,7 @@
     <Compile Include="Activation\ServiceLoaderActivator.cs">
       <DependentUpon>IActivator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\ActivatorGroupAlreadyRegisteredException.cs" />
     <Compile Include="Registration\ServiceLoaderActivatorConfiguration.cs" />
     <Compile Include="Registration\ServiceLoaderScanConventionExtensions.cs" />
     <Compile Include="Registration\ServiceLoaderScanConvention.cs" />
@@ -134,7 +135,7 @@
     <Compile Include="Registration\PreventAutomaticRegistrationAttribute.cs" />
     <Compile Include="Registration\FactoryActivatorRegistration.cs" />
     <Compile Include="Registration\FactoryActivatorRegistrationExtensions.cs" />
-    <Compile Include="Activation\ActivatorGroup.cs">
+    <Compile Include="Activation\DefaultActivatorGroup.cs">
       <DependentUpon>IActivatorGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="Registration\TypedServiceExtensions.cs" />

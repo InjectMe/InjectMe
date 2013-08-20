@@ -50,12 +50,26 @@ namespace InjectMe
             configuration.ApplyRegistrations(this);
         }
 
+        public void Register(IActivatorGroup activatorGroup)
+        {
+            var serviceType = activatorGroup.ServiceType;
+
+            try
+            {
+                _activatorGroups.Add(serviceType, activatorGroup);
+            }
+            catch (ArgumentException)
+            {
+                throw new ActivatorGroupAlreadyRegisteredException(serviceType);
+            }
+        }
+
         public void Register(IActivator activator)
         {
             var serviceType = activator.Identity.ServiceType;
 
             _activatorGroups.
-                TryGetValue(serviceType, () => new ActivatorGroup(serviceType)).
+                TryGetValue(serviceType, () => new DefaultActivatorGroup(serviceType)).
                 Add(activator);
         }
 
@@ -73,7 +87,7 @@ namespace InjectMe
 
         public IEnumerable<object> ResolveAll(Type serviceType)
         {
-            var activators = GetActivators(serviceType);
+            var activators = GetAllActivators(serviceType);
             if (activators == null)
                 return null;
 
@@ -105,7 +119,7 @@ namespace InjectMe
             if (identity.ServiceType.IsArray)
             {
                 var itemServiceType = identity.ServiceType.GetElementType();
-                var itemActivators = GetActivators(itemServiceType);
+                var itemActivators = GetAllActivators(itemServiceType);
 
                 return new ArrayActivator(identity, itemServiceType, itemActivators);
             }
@@ -140,7 +154,7 @@ namespace InjectMe
                          genericTypeDefinition == typeof(ICollection<>) ||
                          genericTypeDefinition == typeof(IList<>))
                 {
-                    var itemActivators = GetActivators(realServiceType);
+                    var itemActivators = GetAllActivators(realServiceType);
 
                     return new ArrayActivator(identity, realServiceType, itemActivators);
                 }
@@ -149,7 +163,7 @@ namespace InjectMe
             return null;
         }
 
-        public IActivator[] GetActivators(Type serviceType)
+        public IActivator[] GetAllActivators(Type serviceType)
         {
             var activatorGroup = _activatorGroups.TryGetValue(serviceType);
 
