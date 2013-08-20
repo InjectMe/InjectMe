@@ -5,7 +5,7 @@ namespace InjectMe.Activation
 {
     public class ArrayActivator : IActivator
     {
-        private readonly Func<IInjectionContext, object> _delegate;
+        private readonly Func<IActivationContext, object> _delegate;
 
         public ArrayActivator(ServiceIdentity identity, Type itemServiceType, IActivator[] activators)
         {
@@ -15,7 +15,7 @@ namespace InjectMe.Activation
 
         public ServiceIdentity Identity { get; private set; }
 
-        public object ActivateService(IInjectionContext context)
+        public object ActivateService(IActivationContext context)
         {
             return _delegate(context);
         }

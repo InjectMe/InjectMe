@@ -4,6 +4,6 @@ namespace InjectMe.Caching
 {
     public interface IServiceScope
     {
-        IServiceCache GetCache(IInjectionContext context);
+        IServiceCache GetCache(IActivationContext context);
     }
 }

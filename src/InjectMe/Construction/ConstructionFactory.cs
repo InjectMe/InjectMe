@@ -13,7 +13,7 @@ namespace InjectMe.Construction
         private readonly static MethodInfo ActivationMethod;
         private readonly object _initializationLock = new object();
 
-        private Func<IInjectionContext, object> _factoryDelegate;
+        private Func<IActivationContext, object> _factoryDelegate;
 
         public Type ConstructionType { get; private set; }
 
@@ -29,13 +29,13 @@ namespace InjectMe.Construction
             ConstructionType = constructionType;
         }
 
-        private ConstructionFactory(Type constructionType, Func<IInjectionContext, object> factoryDelegate)
+        private ConstructionFactory(Type constructionType, Func<IActivationContext, object> factoryDelegate)
         {
             ConstructionType = constructionType;
             _factoryDelegate = factoryDelegate;
         }
 
-        public object CreateService(IInjectionContext context)
+        public object CreateService(IActivationContext context)
         {
             EnsureInitialized(context);
 
@@ -60,7 +60,7 @@ namespace InjectMe.Construction
             return new ConstructionFactory(type, factoryDelegate);
         }
 
-        private void EnsureInitialized(IInjectionContext context)
+        private void EnsureInitialized(IActivationContext context)
         {
             if (_factoryDelegate != null)
                 return;
@@ -77,7 +77,7 @@ namespace InjectMe.Construction
             }
         }
 
-        private static Func<IInjectionContext, object> TryCreateFactoryDelegate(Type type, IContainer container)
+        private static Func<IActivationContext, object> TryCreateFactoryDelegate(Type type, IContainer container)
         {
             var settings =
                 container.ServiceLocator.TryResolve<ConstructionFactorySettings>() ??
@@ -88,7 +88,7 @@ namespace InjectMe.Construction
             if (constructor == null)
                 return null;
 
-            var contextExpression = Expression.Parameter(typeof(IInjectionContext));
+            var contextExpression = Expression.Parameter(typeof(IActivationContext));
             var constructionExpression = CreateConstructionExpression(constructor.ConstructorInfo, constructor.Activators, contextExpression);
 
             if (settings.UsePropertyInjection)
@@ -131,7 +131,7 @@ namespace InjectMe.Construction
             }
 
             return Expression.
-                Lambda<Func<IInjectionContext, object>>(constructionExpression, contextExpression).
+                Lambda<Func<IActivationContext, object>>(constructionExpression, contextExpression).
                 Compile();
         }
 

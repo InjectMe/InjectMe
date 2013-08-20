@@ -5,7 +5,7 @@ namespace InjectMe.Activation
 {
     public class FuncActivator : IActivator
     {
-        private readonly Func<IInjectionContext, object> _delegate;
+        private readonly Func<IActivationContext, object> _delegate;
 
         public FuncActivator(ServiceIdentity identity, IActivator realActivator)
         {
@@ -15,7 +15,7 @@ namespace InjectMe.Activation
 
         public ServiceIdentity Identity { get; private set; }
 
-        public object ActivateService(IInjectionContext context)
+        public object ActivateService(IActivationContext context)
         {
             return _delegate(context);
         }

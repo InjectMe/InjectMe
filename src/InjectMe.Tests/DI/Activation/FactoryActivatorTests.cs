@@ -65,7 +65,7 @@ namespace InjectMe.Tests.DI.Activation
             // Arrange
             var originalObject = new Foo();
             var factoryMock = CreateMock<IFactory>(m => m.
-                Setup(f => f.CreateService(It.IsAny<IInjectionContext>())).
+                Setup(f => f.CreateService(It.IsAny<IActivationContext>())).
                 Returns(originalObject));
 
             var container = Container.Create(c => c.

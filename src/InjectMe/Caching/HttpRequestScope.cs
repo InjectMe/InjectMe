@@ -6,7 +6,7 @@ namespace InjectMe.Caching
 {
     public class HttpRequestScope : IServiceScope
     {
-        public IServiceCache GetCache(IInjectionContext context)
+        public IServiceCache GetCache(IActivationContext context)
         {
             var httpContext = HttpContext.Current;
             if (httpContext == null)

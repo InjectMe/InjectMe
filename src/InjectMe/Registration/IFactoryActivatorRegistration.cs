@@ -9,7 +9,7 @@ namespace InjectMe.Registration
         IFactoryActivatorRegistration UsingConcreteType(Type concreteType);
         IFactoryActivatorRegistration UsingConcreteType<TConcrete>();
         IFactoryActivatorRegistration UsingFactory(Func<object> factoryDelegate);
-        IFactoryActivatorRegistration UsingFactory(Func<IInjectionContext, object> factoryDelegate);
+        IFactoryActivatorRegistration UsingFactory(Func<IActivationContext, object> factoryDelegate);
         IFactoryActivatorRegistration UsingFactory(IFactory factory);
     }
 
@@ -18,7 +18,7 @@ namespace InjectMe.Registration
         IFactoryActivatorRegistration<TService> UsingConcreteType(Type concreteType);
         IFactoryActivatorRegistration<TService> UsingConcreteType<TConcrete>() where TConcrete : TService;
         IFactoryActivatorRegistration<TService> UsingFactory(Func<TService> factoryDelegate);
-        IFactoryActivatorRegistration<TService> UsingFactory(Func<IInjectionContext, TService> factoryDelegate);
+        IFactoryActivatorRegistration<TService> UsingFactory(Func<IActivationContext, TService> factoryDelegate);
         IFactoryActivatorRegistration<TService> UsingFactory(IFactory factory);
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace InjectMe.Activation
 {
-    public class InjectionContext : IInjectionContext
+    public class ActivationContext : IActivationContext
     {
         public IContainer Container { get; private set; }
         public IDictionary<object, object> Data { get; private set; }
 
-        public InjectionContext(IContainer container)
+        public ActivationContext(IContainer container)
         {
             Container = container;
             Data = new Dictionary<object, object>();

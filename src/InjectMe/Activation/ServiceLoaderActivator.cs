@@ -13,7 +13,7 @@
             Identity = new ServiceIdentity(typeof(TService));
         }
 
-        public object ActivateService(IInjectionContext context)
+        public object ActivateService(IActivationContext context)
         {
             return _loader.LoadService();
         }

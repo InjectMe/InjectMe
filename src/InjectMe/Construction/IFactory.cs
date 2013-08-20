@@ -4,6 +4,6 @@ namespace InjectMe.Construction
 {
     public interface IFactory
     {
-        object CreateService(IInjectionContext context);
+        object CreateService(IActivationContext context);
     }
 }

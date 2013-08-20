@@ -4,7 +4,7 @@ namespace InjectMe.Caching
 {
     public class SingletonScope : IServiceScope
     {
-        public IServiceCache GetCache(IInjectionContext context)
+        public IServiceCache GetCache(IActivationContext context)
         {
             return context.Container.ServiceLocator.Resolve<IServiceCache>();
         }

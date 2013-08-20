@@ -11,7 +11,7 @@ namespace InjectMe.Activation
         public ServiceIdentity Identity { get; private set; }
         public object Instance { get; private set; }
 
-        public object ActivateService(IInjectionContext context)
+        public object ActivateService(IActivationContext context)
         {
             return Instance;
         }

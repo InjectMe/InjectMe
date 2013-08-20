@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace InjectMe.Activation
 {
-    public interface IInjectionContext : IDisposable
+    public interface IActivationContext : IDisposable
     {
         IContainer Container { get; }
         IDictionary<object, object> Data { get; }

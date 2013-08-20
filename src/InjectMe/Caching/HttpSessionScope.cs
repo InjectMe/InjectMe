@@ -7,7 +7,7 @@ namespace InjectMe.Caching
     {
         private static readonly string SessionKey = typeof(HttpSessionScope).FullName;
 
-        public IServiceCache GetCache(IInjectionContext context)
+        public IServiceCache GetCache(IActivationContext context)
         {
             var httpContext = HttpContext.Current;
             if (httpContext == null)

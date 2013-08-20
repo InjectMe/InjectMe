@@ -8,6 +8,8 @@ using InjectMe.Registration;
 
 namespace InjectMe
 {
+    using ActivationContext = Activation.ActivationContext;
+
     public class Container : IContainer
     {
         private readonly IDictionary<Type, IActivatorGroup> _activatorGroups = new Dictionary<Type, IActivatorGroup>();
@@ -156,9 +158,9 @@ namespace InjectMe
                 : new IActivator[0];
         }
 
-        private IInjectionContext CreateInjectionContext()
+        private IActivationContext CreateInjectionContext()
         {
-            return new InjectionContext(this);
+            return new ActivationContext(this);
         }
     }
 }

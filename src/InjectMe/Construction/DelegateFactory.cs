@@ -5,19 +5,19 @@ namespace InjectMe.Construction
 {
     public class DelegateFactory : IFactory
     {
-        private readonly Func<IInjectionContext, object> _factoryDelegate;
+        private readonly Func<IActivationContext, object> _factoryDelegate;
 
         public DelegateFactory(Func<object> factoryDelegate)
         {
             _factoryDelegate = context => factoryDelegate();
         }
 
-        public DelegateFactory(Func<IInjectionContext, object> factoryDelegate)
+        public DelegateFactory(Func<IActivationContext, object> factoryDelegate)
         {
             _factoryDelegate = factoryDelegate;
         }
 
-        public object CreateService(IInjectionContext context)
+        public object CreateService(IActivationContext context)
         {
             return _factoryDelegate(context);
         }
@@ -25,19 +25,19 @@ namespace InjectMe.Construction
 
     public class DelegateFactory<TService> : IFactory
     {
-        private readonly Func<IInjectionContext, TService> _factoryDelegate;
+        private readonly Func<IActivationContext, TService> _factoryDelegate;
 
         public DelegateFactory(Func<TService> factoryDelegate)
         {
             _factoryDelegate = context => factoryDelegate();
         }
 
-        public DelegateFactory(Func<IInjectionContext, TService> factoryDelegate)
+        public DelegateFactory(Func<IActivationContext, TService> factoryDelegate)
         {
             _factoryDelegate = factoryDelegate;
         }
 
-        public object CreateService(IInjectionContext context)
+        public object CreateService(IActivationContext context)
         {
             return _factoryDelegate(context);
         }

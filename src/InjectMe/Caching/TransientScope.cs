@@ -5,7 +5,7 @@ namespace InjectMe.Caching
 {
     public class TransientScope : IServiceScope
     {
-        public IServiceCache GetCache(IInjectionContext context)
+        public IServiceCache GetCache(IActivationContext context)
         {
             var key = GetType();
             var cache = (IServiceCache)context.Data.TryGetValue(key, CreateCache);

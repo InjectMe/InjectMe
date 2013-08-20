@@ -29,7 +29,7 @@ namespace InjectMe.Activation
             Scope = scope;
         }
 
-        public object ActivateService(IInjectionContext context)
+        public object ActivateService(IActivationContext context)
         {
             var cache = Scope.GetCache(context);
             var service = cache.Get(Identity, () => Factory.CreateService(context));

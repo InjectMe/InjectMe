@@ -52,7 +52,7 @@ namespace InjectMe.Registration
             return this;
         }
 
-        IFactoryActivatorRegistration IFactoryActivatorRegistration.UsingFactory(Func<IInjectionContext, object> factoryDelegate)
+        IFactoryActivatorRegistration IFactoryActivatorRegistration.UsingFactory(Func<IActivationContext, object> factoryDelegate)
         {
             var delegateFactory = new DelegateFactory(factoryDelegate);
 
@@ -91,7 +91,7 @@ namespace InjectMe.Registration
             return this;
         }
 
-        public IFactoryActivatorRegistration<TService> UsingFactory(Func<IInjectionContext, TService> factoryDelegate)
+        public IFactoryActivatorRegistration<TService> UsingFactory(Func<IActivationContext, TService> factoryDelegate)
         {
             var delegateFactory = new DelegateFactory<TService>(factoryDelegate);
 

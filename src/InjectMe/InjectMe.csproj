@@ -51,7 +51,7 @@
     <Compile Include="Registration\ServiceLoaderScanConvention.cs" />
     <Compile Include="Activation\IServiceLoader.cs" />
     <Compile Include="Activation\IActivatorGroup.cs" />
-    <Compile Include="Activation\IInjectionContext.cs" />
+    <Compile Include="Activation\IActivationContext.cs" />
     <Compile Include="Caching\HttpRequestScope.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,8 +113,8 @@
     <Compile Include="Exceptions\ServiceCouldNotBeCreatedException.cs" />
     <Compile Include="Exceptions\ServiceNotRegisteredException.cs" />
     <Compile Include="IContainer.cs" />
-    <Compile Include="Activation\InjectionContext.cs">
-      <DependentUpon>IInjectionContext.cs</DependentUpon>
+    <Compile Include="Activation\ActivationContext.cs">
+      <DependentUpon>IActivationContext.cs</DependentUpon>
     </Compile>
     <Compile Include="IServiceLocator.cs" />
     <Compile Include="Activation\FuncActivator.cs">
