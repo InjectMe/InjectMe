@@ -11,11 +11,11 @@
     <copyright>Copyright 2013 © Tobias Persson. All rights reserved.</copyright>
     <tags>Dependency Injection</tags>
     <dependencies>
-      <dependency id="InjectMe" version="[0.5,1.0)" />
+      <dependency id="InjectMe" version="[0.8,1.0)" />
       <dependency id="Microsoft.AspNet.Mvc" version="[4.0.20710.0, 4.1)" />
     </dependencies>
   </metadata>
   <files>
-    <file src="InjectMe.Web\bin\release\InjectMe.Web.*" target="lib" />
+    <file src="InjectMe.Web\bin\release\InjectMe.Web.*" target="lib\net45" />
   </files>
 </package>
