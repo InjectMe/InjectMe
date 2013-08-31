@@ -1,3 +1,4 @@
+using System;
 using System.Web;
 using InjectMe.Activation;
 using InjectMe.Extensions;
@@ -6,14 +7,15 @@ namespace InjectMe.Caching
 {
     public class HttpRequestScope : IServiceScope
     {
+        private static readonly Type RequestItemKey = typeof(HttpRequestScope);
+
         public IServiceCache GetCache(IActivationContext context)
         {
             var httpContext = HttpContext.Current;
             if (httpContext == null)
                 throw new HttpContextNotSetException();
 
-            var key = GetType();
-            var cache = (IServiceCache)httpContext.Items.TryGetValue(key, CreateCache);
+            var cache = (IServiceCache)httpContext.Items.TryGetValue(RequestItemKey, CreateCache);
 
             return cache;
         }
