@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Reflection;
-#if NETFX_CORE
 
+#if !NET45
+using System.Reflection;
 #endif
 
 namespace InjectMe.Extensions
@@ -17,10 +17,10 @@ namespace InjectMe.Extensions
 
         public static bool Implements(this Type instanceType, Type baseType)
         {
-#if NETFX_CORE
-            return baseType.GetTypeInfo().IsAssignableFrom(instanceType.GetTypeInfo());
-#else
+#if NET45
             return baseType.IsAssignableFrom(instanceType);
+#else
+            return baseType.GetTypeInfo().IsAssignableFrom(instanceType.GetTypeInfo());
 #endif
         }
     }

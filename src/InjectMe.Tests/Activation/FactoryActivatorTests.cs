@@ -1,11 +1,10 @@
 ﻿using InjectMe.Activation;
 using InjectMe.Construction;
-using InjectMe.Registration;
-using InjectMe.Tests.DI.TestData;
+using InjectMe.Tests.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace InjectMe.Tests.DI.Activation
+namespace InjectMe.Tests.Activation
 {
     [TestClass]
     public class FactoryActivatorTests : TestBase

@@ -1,8 +1,7 @@
-﻿using InjectMe.Registration;
-using InjectMe.Tests.DI.TestData;
+﻿using InjectMe.Tests.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace InjectMe.Tests.DI.Activation
+namespace InjectMe.Tests.Activation
 {
     [TestClass]
     public class InstanceActivatorTests

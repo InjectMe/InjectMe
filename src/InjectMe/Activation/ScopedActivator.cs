@@ -4,16 +4,13 @@ using InjectMe.Construction;
 
 namespace InjectMe.Activation
 {
-    public class FactoryActivator : IActivator
+    public class ScopedActivator : IActivator
     {
         public IFactory Factory { get; private set; }
         public ServiceIdentity Identity { get; private set; }
         public IServiceScope Scope { get; set; }
 
-        public FactoryActivator(
-            ServiceIdentity identity,
-            IFactory factory,
-            IServiceScope scope)
+        public ScopedActivator(ServiceIdentity identity, IFactory factory, IServiceScope scope)
         {
             if (identity == null)
                 throw new ArgumentNullException("identity");

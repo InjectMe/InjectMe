@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\debug\net45\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -26,7 +26,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\release\net45\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -49,6 +49,10 @@
     <Compile Include="Exceptions\ActivatorGroupAlreadyRegisteredException.cs" />
     <Compile Include="Registration\FluentConfiguration.cs">
       <DependentUpon>IFluentConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\IFluentConfiguration.cs" />
+    <Compile Include="Registration\InstanceActivatorConfiguration.cs">
+      <DependentUpon>IInstanceActivatorConfiguration.cs</DependentUpon>
     </Compile>
     <Compile Include="Registration\ServiceLoaderActivatorConfiguration.cs" />
     <Compile Include="Registration\ServiceLoaderScanConventionExtensions.cs" />
@@ -77,7 +81,7 @@
     <Compile Include="Caching\TransientScopeAttribute.cs" />
     <Compile Include="Construction\ConstructionFactorySettings.cs" />
     <Compile Include="Construction\TypeExtensions.cs" />
-    <Compile Include="Activation\FactoryActivator.cs">
+    <Compile Include="Activation\ScopedActivator.cs">
       <DependentUpon>IActivator.cs</DependentUpon>
     </Compile>
     <Compile Include="Activation\ArrayActivator.cs">
@@ -86,15 +90,12 @@
     <Compile Include="Exceptions\ActivatorConfigurationAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\HttpContextNotSetException.cs" />
     <Compile Include="Exceptions\HttpSessionNotSetException.cs" />
-    <Compile Include="Registration\AssemblyScanner_AppDomain.cs" />
-    <Compile Include="Registration\FactoryActivatorRegistrationExtensions_http.cs" />
-    <Compile Include="Registration\IFactoryActivatorRegistration.cs" />
-    <Compile Include="Registration\IFluentConfiguration.cs" />
-    <Compile Include="Registration\IInstanceActivatorRegistration.cs" />
-    <Compile Include="Registration\InstanceActivatorRegistration.cs" />
-    <Compile Include="Registration\InstanceActivatorRegistrationExtensions.cs" />
+    <Compile Include="Registration\IScopedActivatorConfiguration.cs" />
+    <Compile Include="Registration\IInstanceActivatorConfiguration.cs" />
     <Compile Include="Registration\IActivatorConfiguration.cs" />
-    <Compile Include="Registration\ContainerConfiguration.cs" />
+    <Compile Include="Registration\ContainerConfiguration.cs">
+      <DependentUpon>IContainerConfiguration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registration\BasicScanConvention.cs">
       <DependentUpon>IScanConvention.cs</DependentUpon>
     </Compile>
@@ -126,16 +127,18 @@
     <Compile Include="Activation\InstanceActivator.cs">
       <DependentUpon>IActivator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registration\AssemblyScanner.cs" />
+    <Compile Include="Registration\AssemblyScanner.cs">
+      <DependentUpon>IAssemblyScanner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registration\IAssemblyScanner.cs" />
-    <Compile Include="Registration\IActivatorRegistration.cs" />
     <Compile Include="Activation\IActivator.cs" />
     <Compile Include="Activation\LazyActivator.cs">
       <DependentUpon>IActivator.cs</DependentUpon>
     </Compile>
     <Compile Include="Registration\PreventAutomaticRegistrationAttribute.cs" />
-    <Compile Include="Registration\FactoryActivatorRegistration.cs" />
-    <Compile Include="Registration\FactoryActivatorRegistrationExtensions.cs" />
+    <Compile Include="Registration\ScopedActivatorConfiguration.cs">
+      <DependentUpon>IScopedActivatorConfiguration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Activation\DefaultActivatorGroup.cs">
       <DependentUpon>IActivatorGroup.cs</DependentUpon>
     </Compile>

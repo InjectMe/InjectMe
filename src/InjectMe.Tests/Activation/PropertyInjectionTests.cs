@@ -1,9 +1,8 @@
 ﻿using System;
 using InjectMe.Construction;
-using InjectMe.Registration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace InjectMe.Tests.DI
+namespace InjectMe.Tests.Activation
 {
     [TestClass]
     public class PropertyInjectionTests : TestBase
@@ -39,7 +38,7 @@ namespace InjectMe.Tests.DI
                 configuration.
                     RegisterInstance(new ConstructionFactorySettings
                     {
-                        PropertyInjectionAttribute = typeof(InjectedAttribute),
+                        PropertyInjectionAttribute = typeof(InjectPropertyAttribute),
                         UsePropertyInjection = true
                     }).
                     RegisterSingleton<BarWithAttribute>().
@@ -80,7 +79,7 @@ namespace InjectMe.Tests.DI
                 configuration.
                     RegisterInstance(new ConstructionFactorySettings
                     {
-                        PropertyInjectionAttribute = typeof(InjectedAttribute),
+                        PropertyInjectionAttribute = typeof(InjectPropertyAttribute),
                         UsePropertyInjection = true
                     }).
                     RegisterSingleton<Bar>().
@@ -105,11 +104,11 @@ namespace InjectMe.Tests.DI
 
         private class BarWithAttribute
         {
-            [Injected]
+            [InjectProperty]
             public Foo Foo { get; private set; }
         }
 
-        private class InjectedAttribute : Attribute
+        private class InjectPropertyAttribute : Attribute
         {
         }
     }

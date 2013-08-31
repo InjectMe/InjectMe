@@ -1,7 +1,7 @@
 using InjectMe.Caching;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace InjectMe.Tests.DI
+namespace InjectMe.Tests
 {
     [TestClass]
     public class ContainerTests

@@ -6,4 +6,9 @@ namespace InjectMe.Registration
     {
         IActivator GetActivator(IContainer container);
     }
+
+    public interface IActivatorConfiguration<TService>
+    {
+        IActivator GetActivator(IContainer container);
+    }
 }

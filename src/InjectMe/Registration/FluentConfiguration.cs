@@ -1,34 +1,32 @@
 using System;
-using System.Collections.Generic;
+using InjectMe.Caching;
 
 namespace InjectMe.Registration
 {
-    public class FluentConfiguration<TService> :
-        FluentConfiguration,
-        IFluentConfiguration<TService>
-    {
-        public FluentConfiguration(string serviceName, Queue<IActivatorConfiguration> activatorConfigurations)
-            : base(new ServiceIdentity(typeof(TService), serviceName), activatorConfigurations)
-        {
-        }
-    }
-
     public class FluentConfiguration : IFluentConfiguration
     {
-        private readonly Queue<IActivatorConfiguration> _activatorConfigurations;
+        protected static readonly IServiceScope TransientScope = new TransientScope();
+        protected static readonly IServiceScope SingletonScope = new SingletonScope();
+
+#if NET45
+        protected static readonly IServiceScope HttpRequestScope = new HttpRequestScope();
+        protected static readonly IServiceScope HttpSessionScope = new HttpSessionScope();
+#endif
+
+        private readonly IContainerConfiguration _containerConfiguration;
         private IActivatorConfiguration _activatorConfiguration;
 
         public ServiceIdentity Identity { get; private set; }
 
-        public FluentConfiguration(ServiceIdentity identity, Queue<IActivatorConfiguration> activatorConfigurations)
+        public FluentConfiguration(ServiceIdentity identity, IContainerConfiguration containerConfiguration)
         {
             if (identity == null)
                 throw new ArgumentNullException("identity");
 
-            if (activatorConfigurations == null)
-                throw new ArgumentNullException("activatorConfigurations");
+            if (containerConfiguration == null)
+                throw new ArgumentNullException("containerConfiguration");
 
-            _activatorConfigurations = activatorConfigurations;
+            _containerConfiguration = containerConfiguration;
 
             Identity = identity;
         }
@@ -42,8 +40,99 @@ namespace InjectMe.Registration
                     throw new ActivatorConfigurationAlreadyRegisteredException(Identity);
 
                 _activatorConfiguration = value;
-                _activatorConfigurations.Enqueue(value);
+                _containerConfiguration.Register(value);
             }
+        }
+
+        public IScopedActivatorConfiguration AsSingleton()
+        {
+            return InScope(SingletonScope);
+        }
+
+        public IScopedActivatorConfiguration AsTransient()
+        {
+            return InScope(TransientScope);
+        }
+
+        public IScopedActivatorConfiguration InScope(IServiceScope serviceScope)
+        {
+            var configuration = new ScopedActivatorConfiguration<object>(Identity, serviceScope);
+
+            Configuration = configuration;
+
+            return configuration;
+        }
+
+#if NET45
+        public IScopedActivatorConfiguration InHttpRequestScope()
+        {
+            return InScope(HttpRequestScope);
+        }
+
+        public IScopedActivatorConfiguration InHttpSessionScope()
+        {
+            return InScope(HttpSessionScope);
+        }
+#endif
+
+        public IInstanceActivatorConfiguration UsingInstance(object instance)
+        {
+            var configuration = new InstanceActivatorConfiguration<object>(Identity, instance);
+
+            Configuration = configuration;
+
+            return configuration;
+        }
+    }
+
+    public class FluentConfiguration<TService> :
+        FluentConfiguration,
+        IFluentConfiguration<TService>
+        where TService : class
+    {
+        public FluentConfiguration(string serviceName, IContainerConfiguration containerConfiguration)
+            : base(new ServiceIdentity(typeof(TService), serviceName), containerConfiguration)
+        {
+        }
+
+        public new IScopedActivatorConfiguration<TService> AsSingleton()
+        {
+            return InScope(SingletonScope);
+        }
+
+        public new IScopedActivatorConfiguration<TService> AsTransient()
+        {
+            return InScope(TransientScope);
+        }
+
+        public new IScopedActivatorConfiguration<TService> InScope(IServiceScope serviceScope)
+        {
+            var configuration = new ScopedActivatorConfiguration<TService>(Identity, serviceScope);
+
+            Configuration = configuration;
+
+            return configuration;
+        }
+
+#if NET45
+        public new IScopedActivatorConfiguration<TService> InHttpRequestScope()
+        {
+            return InScope(HttpRequestScope);
+        }
+
+        public new IScopedActivatorConfiguration<TService> InHttpSessionScope()
+        {
+            return InScope(HttpSessionScope);
+        }
+#endif
+
+        public IInstanceActivatorConfiguration<TService> UsingInstance(TService instance)
+        {
+            var configuration = new InstanceActivatorConfiguration<TService>(Identity, instance);
+
+            Configuration = configuration;
+
+            return configuration;
         }
     }
 }

@@ -85,6 +85,30 @@ namespace InjectMe.Registration
             return ScanAssembly(assembly);
         }
 
+#if NET45
+        public IAssemblyScanner ScanLoadedAssemblies()
+        {
+            var assemblies = GetLoadedAssemblies();
+
+            foreach (var assemblyFilter in _assemblyFilters)
+            {
+                assemblies = assemblies.Where(assemblyFilter);
+            }
+
+            foreach (var assembly in assemblies)
+            {
+                ScanAssembly(assembly);
+            }
+
+            return this;
+        }
+
+        private static IEnumerable<Assembly> GetLoadedAssemblies()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies();
+        }
+#endif
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsAnonymousType(TypeInfo type)
         {

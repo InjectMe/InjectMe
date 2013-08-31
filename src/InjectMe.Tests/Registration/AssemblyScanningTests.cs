@@ -1,8 +1,8 @@
 using InjectMe.Registration;
-using InjectMe.Tests.DI.TestData;
+using InjectMe.Tests.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace InjectMe.Tests.DI
+namespace InjectMe.Tests.Registration
 {
     [TestClass]
     public class AssemblyScanningTests

@@ -4,21 +4,20 @@ using InjectMe.Activation;
 
 namespace InjectMe.Registration
 {
-    public class InstanceActivatorRegistration<TService> :
-        IInstanceActivatorRegistration<TService>,
-        IInstanceActivatorRegistration,
-        IActivatorConfiguration
+    public class InstanceActivatorConfiguration<TService> :
+        IInstanceActivatorConfiguration<TService>,
+        IInstanceActivatorConfiguration
         where TService : class
     {
         public ServiceIdentity Identity { get; private set; }
         public TService Instance { get; private set; }
 
-        object IInstanceActivatorRegistration.Instance
+        object IInstanceActivatorConfiguration.Instance
         {
             get { return Instance; }
         }
 
-        public InstanceActivatorRegistration(ServiceIdentity identity, TService instance)
+        public InstanceActivatorConfiguration(ServiceIdentity identity, TService instance)
         {
             if (identity == null)
                 throw new ArgumentNullException("identity");

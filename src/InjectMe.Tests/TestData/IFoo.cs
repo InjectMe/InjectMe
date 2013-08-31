@@ -1,4 +1,4 @@
-namespace InjectMe.Tests.DI.TestData
+namespace InjectMe.Tests.TestData
 {
     public interface IFoo
     {

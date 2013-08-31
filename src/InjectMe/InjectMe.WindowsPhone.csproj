@@ -84,17 +84,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Activation\ActivatorGroup.cs" />
+    <Compile Include="Activation\ActivationContext.cs" />
     <Compile Include="Activation\ArrayActivator.cs" />
-    <Compile Include="Activation\FactoryActivator.cs" />
+    <Compile Include="Activation\DefaultActivatorGroup.cs" />
     <Compile Include="Activation\FuncActivator.cs" />
+    <Compile Include="Activation\IActivationContext.cs" />
     <Compile Include="Activation\IActivator.cs" />
     <Compile Include="Activation\IActivatorGroup.cs" />
-    <Compile Include="Activation\IInjectionContext.cs" />
-    <Compile Include="Activation\InjectionContext.cs" />
     <Compile Include="Activation\InstanceActivator.cs" />
     <Compile Include="Activation\IServiceLoader.cs" />
     <Compile Include="Activation\LazyActivator.cs" />
+    <Compile Include="Activation\ScopedActivator.cs" />
     <Compile Include="Activation\ServiceLoaderActivator.cs" />
     <Compile Include="Caching\DictionaryServiceCache.cs" />
     <Compile Include="Caching\IServiceCache.cs" />
@@ -113,35 +113,27 @@
     <Compile Include="Container.cs" />
     <Compile Include="Exceptions\ActivatorAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\ActivatorConfigurationAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\ActivatorGroupAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\NoValidConstructorFoundException.cs" />
     <Compile Include="Exceptions\ServiceCouldNotBeCreatedException.cs" />
     <Compile Include="Exceptions\ServiceNotRegisteredException.cs" />
     <Compile Include="IContainer.cs" />
     <Compile Include="IServiceLocator.cs" />
     <Compile Include="Registration\AssemblyScanner.cs" />
-    <Compile Include="Registration\AssemblyScanner_AppDomain.cs" />
-    <Compile Include="Registration\BasicScanConvention.cs">
-      <DependentUpon>IScanConvention.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registration\BasicScanConventionsExtensions.cs">
-      <DependentUpon>IScanConvention.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Registration\BasicScanConvention.cs" />
+    <Compile Include="Registration\BasicScanConventionsExtensions.cs" />
     <Compile Include="Registration\ContainerConfiguration.cs" />
-    <Compile Include="Registration\FactoryActivatorRegistration.cs" />
-    <Compile Include="Registration\FactoryActivatorRegistrationExtensions.cs" />
-    <Compile Include="Registration\FluentRegistration.cs" />
+    <Compile Include="Registration\FluentConfiguration.cs" />
     <Compile Include="Registration\IActivatorConfiguration.cs" />
-    <Compile Include="Registration\IActivatorRegistration.cs" />
     <Compile Include="Registration\IAssemblyScanner.cs" />
     <Compile Include="Registration\IContainerConfiguration.cs" />
-    <Compile Include="Registration\IFactoryActivatorRegistration.cs" />
     <Compile Include="Registration\IFluentConfiguration.cs" />
-    <Compile Include="Registration\IFluentRegistration.cs" />
-    <Compile Include="Registration\IInstanceActivatorRegistration.cs" />
-    <Compile Include="Registration\InstanceActivatorRegistration.cs" />
-    <Compile Include="Registration\InstanceActivatorRegistrationExtensions.cs" />
+    <Compile Include="Registration\IInstanceActivatorConfiguration.cs" />
+    <Compile Include="Registration\InstanceActivatorConfiguration.cs" />
     <Compile Include="Registration\IScanConvention.cs" />
+    <Compile Include="Registration\IScopedActivatorConfiguration.cs" />
     <Compile Include="Registration\PreventAutomaticRegistrationAttribute.cs" />
+    <Compile Include="Registration\ScopedActivatorConfiguration.cs" />
     <Compile Include="Registration\ServiceLoaderActivatorConfiguration.cs" />
     <Compile Include="Registration\ServiceLoaderScanConvention.cs" />
     <Compile Include="Registration\ServiceLoaderScanConventionExtensions.cs" />
