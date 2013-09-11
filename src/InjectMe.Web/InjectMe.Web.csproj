@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerBuilderExtensions.cs" />
-    <Compile Include="DomoControllerFactory.cs" />
+    <Compile Include="InjectMeControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

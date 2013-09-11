@@ -4,9 +4,9 @@ namespace InjectMe.Web
 {
     public static class ControllerBuilderExtensions
     {
-        public static void SetDomoControllerFactory(this ControllerBuilder controllerBuilder, IContainer container)
+        public static void SetInjectMeControllerFactory(this ControllerBuilder controllerBuilder, IContainer container)
         {
-            var controllerFactory = new DomoControllerFactory(container);
+            var controllerFactory = new InjectMeControllerFactory(container);
 
             controllerBuilder.SetControllerFactory(controllerFactory);
         }
