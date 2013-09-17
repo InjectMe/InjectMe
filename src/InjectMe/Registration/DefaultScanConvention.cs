@@ -5,11 +5,11 @@ using InjectMe.Caching;
 
 namespace InjectMe.Registration
 {
-    public class BasicScanConvention : IScanConvention
+    public class DefaultScanConvention : IScanConvention
     {
         public bool UsePrefixResolution { get; private set; }
 
-        public BasicScanConvention(bool usePrefixResolution)
+        public DefaultScanConvention(bool usePrefixResolution)
         {
             UsePrefixResolution = usePrefixResolution;
         }

@@ -102,10 +102,10 @@
     <Compile Include="Registration\ContainerConfiguration.cs">
       <DependentUpon>IContainerConfiguration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registration\BasicScanConvention.cs">
+    <Compile Include="Registration\DefaultScanConvention.cs">
       <DependentUpon>IScanConvention.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registration\BasicScanConventionsExtensions.cs">
+    <Compile Include="Registration\DefaultScanConventionsExtensions.cs">
       <DependentUpon>IScanConvention.cs</DependentUpon>
     </Compile>
     <Compile Include="Registration\IScanConvention.cs" />

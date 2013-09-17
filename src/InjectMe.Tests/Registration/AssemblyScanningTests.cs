@@ -16,7 +16,7 @@ namespace InjectMe.Tests.Registration
                 configuration.Scan(
                     scanner =>
                     scanner.
-                        UseBasicConventions().
+                        UseDefaultConventions().
                         ScanAssemblyContaining<ContainerTests>()));
 
             // Act
