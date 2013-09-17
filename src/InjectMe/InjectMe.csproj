@@ -110,7 +110,9 @@
     </Compile>
     <Compile Include="Registration\IScanConvention.cs" />
     <Compile Include="Caching\IServiceCache.cs" />
-    <Compile Include="Caching\DictionaryServiceCache.cs" />
+    <Compile Include="Caching\DictionaryServiceCache.cs">
+      <DependentUpon>IServiceCache.cs</DependentUpon>
+    </Compile>
     <Compile Include="Container.cs">
       <DependentUpon>IContainer.cs</DependentUpon>
     </Compile>

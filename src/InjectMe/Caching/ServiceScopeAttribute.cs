@@ -6,9 +6,9 @@ namespace InjectMe.Caching
     {
         public IServiceScope Scope { get; private set; }
 
-        protected ServiceScopeAttribute(IServiceScope serviceScope)
+        protected ServiceScopeAttribute(IServiceScope scope)
         {
-            Scope = serviceScope;
+            Scope = scope;
         }
     }
 }

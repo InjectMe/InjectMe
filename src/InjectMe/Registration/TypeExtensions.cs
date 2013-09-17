@@ -7,9 +7,9 @@ namespace InjectMe.Registration
     {
         public static IServiceScope GetServiceScope(this TypeInfo type)
         {
-            var serviceTypeAttribute = type.GetCustomAttribute<ServiceScopeAttribute>();
-            if (serviceTypeAttribute != null)
-                return serviceTypeAttribute.Scope;
+            var scopeAttribute = type.GetCustomAttribute<ServiceScopeAttribute>();
+            if (scopeAttribute != null)
+                return scopeAttribute.Scope;
 
             return null;
         }
