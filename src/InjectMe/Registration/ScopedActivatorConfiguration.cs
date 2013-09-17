@@ -2,6 +2,7 @@ using System;
 using InjectMe.Activation;
 using InjectMe.Caching;
 using InjectMe.Construction;
+using InjectMe.Extensions;
 
 namespace InjectMe.Registration
 {
@@ -114,17 +115,22 @@ namespace InjectMe.Registration
 
         public IActivator GetActivator(IContainer container)
         {
-            if (Identity.ServiceType.IsGenericTypeDefinition)
-            {
-                return new UnboundActivator(Identity, ServiceScope, ConcreteType ?? Identity.ServiceType);
-            }
-            else
-            {
-                var factory = Factory ?? new ConstructionFactory(ConcreteType ?? Identity.ServiceType);
-                var activator = new ScopedActivator(Identity, factory, ServiceScope);
+            return Identity.ServiceType.IsGenericTypeDefinition()
+                ? GetUnboundActivator()
+                : GetScopedActivator();
+        }
 
-                return activator;
-            }
+        private IActivator GetUnboundActivator()
+        {
+            return new UnboundActivator(Identity, ServiceScope, ConcreteType ?? Identity.ServiceType);
+        }
+
+        private IActivator GetScopedActivator()
+        {
+            var factory = Factory ?? new ConstructionFactory(ConcreteType ?? Identity.ServiceType);
+            var activator = new ScopedActivator(Identity, factory, ServiceScope);
+
+            return activator;
         }
     }
 }

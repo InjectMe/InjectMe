@@ -96,7 +96,7 @@ namespace InjectMe.Construction
 
             if (settings.UsePropertyInjection)
             {
-                var serviceExpression = Expression.Variable(typeInfo.AsType());
+                var serviceExpression = Expression.Variable(type);
                 var expressions = new List<Expression>
                 {
                     Expression.Assign(serviceExpression, constructionExpression)

@@ -1,6 +1,7 @@
 using System;
 using InjectMe.Caching;
 using InjectMe.Construction;
+using InjectMe.Extensions;
 
 namespace InjectMe.Activation
 {
@@ -15,7 +16,7 @@ namespace InjectMe.Activation
             if (identity == null)
                 throw new ArgumentNullException("identity");
 
-            if (identity.ServiceType.IsGenericTypeDefinition == false)
+            if (identity.ServiceType.IsGenericTypeDefinition() == false)
                 throw new ArgumentException("An unbound activator can only be created for generic type definitions.");
 
             if (scope == null)

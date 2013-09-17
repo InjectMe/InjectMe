@@ -23,5 +23,14 @@ namespace InjectMe.Extensions
             return baseType.GetTypeInfo().IsAssignableFrom(instanceType.GetTypeInfo());
 #endif
         }
+
+        public static bool IsGenericTypeDefinition(this Type type)
+        {
+#if NETFX_CORE
+            return type.GetTypeInfo().IsGenericTypeDefinition;
+#else
+            return type.IsGenericTypeDefinition;
+#endif
+        }
     }
 }
