@@ -19,19 +19,11 @@ namespace InjectMe.WebApi
             if (type.IsAbstract || type.IsInterface || type.IsGenericTypeDefinition || type.IsNested)
                 return;
 
-            ProcessConcreteType(container, type);
-        }
-
-        private static void ProcessConcreteType(IContainerConfiguration container, TypeInfo concreteType)
-        {
-            if (ApiControllerType.IsAssignableFrom(concreteType))
+            if (ApiControllerType.IsAssignableFrom(type))
             {
-                var serviceType = concreteType.AsType();
-
                 container.
-                    Register(serviceType).
-                    AsTransient().
-                    UsingConcreteType(concreteType);
+                    Register(type).
+                    AsTransient();
             }
         }
     }

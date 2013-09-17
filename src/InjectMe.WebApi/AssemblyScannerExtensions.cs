@@ -4,9 +4,9 @@ namespace InjectMe.WebApi
 {
     public static class AssemblyScannerExtensions
     {
-        public static IAssemblyScanner RegisterApiControllers(this IAssemblyScanner assemblyScanner)
+        public static IAssemblyScanner RegisterApiControllers(this IAssemblyScanner scanner)
         {
-            return assemblyScanner.UseConvention<ApiControllerScanConvention>();
+            return scanner.UseConvention<ApiControllerScanConvention>();
         }
     }
 }
