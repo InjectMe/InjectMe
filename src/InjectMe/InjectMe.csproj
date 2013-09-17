@@ -43,10 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activation\IUnboundActivator.cs" />
     <Compile Include="Activation\ServiceLoaderActivator.cs">
       <DependentUpon>IActivator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Activation\UnboundActivator.cs">
+      <DependentUpon>IUnboundActivator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Exceptions\ActivatorGroupAlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\UnboundTypeConstructionFailedException.cs" />
+    <Compile Include="Exceptions\UnboundTypeActivationFailedException.cs" />
     <Compile Include="Registration\FluentConfiguration.cs">
       <DependentUpon>IFluentConfiguration.cs</DependentUpon>
     </Compile>

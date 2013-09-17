@@ -79,7 +79,7 @@ namespace InjectMe
             if (activator == null)
                 return null;
 
-            var context = CreateInjectionContext();
+            var context = new ActivationContext(this);
             var instance = activator.ActivateService(context);
 
             return instance;
@@ -91,7 +91,7 @@ namespace InjectMe
             if (activators == null)
                 return null;
 
-            var context = CreateInjectionContext();
+            var context = new ActivationContext(this);
 
             return from activator in activators
                    select activator.ActivateService(context);
@@ -101,8 +101,8 @@ namespace InjectMe
         {
             return
                 TryGetRegisteredActivator(identity) ??
-                TryCreateArrayActivator(identity) ??
-                TryCreateGenericActivator(identity);
+                TryCreateGenericActivator(identity) ??
+                TryCreateArrayActivator(identity);
         }
 
         private IActivator TryGetRegisteredActivator(ServiceIdentity identity)
@@ -110,6 +110,64 @@ namespace InjectMe
             var activatorGroup = _activatorGroups.TryGetValue(identity.ServiceType);
             if (activatorGroup != null)
                 return activatorGroup.GetActivator(identity);
+
+            return null;
+        }
+
+        private IActivator TryCreateGenericActivator(ServiceIdentity identity)
+        {
+            if (identity.ServiceType.IsConstructedGenericType)
+            {
+                var genericTypeDefinition = identity.ServiceType.GetGenericTypeDefinition();
+
+                var unboundActivatorGroup = _activatorGroups.TryGetValue(genericTypeDefinition);
+                if (unboundActivatorGroup != null)
+                {
+                    var genericArguments = identity.ServiceType.GenericTypeArguments;
+                    var boundActivators = unboundActivatorGroup.
+                        GetAllActivators().
+                        OfType<IUnboundActivator>().
+                        Select(a => a.ConstructBoundActivator(genericArguments));
+
+                    foreach (var activator in boundActivators)
+                    {
+                        Register(activator);
+                    }
+
+                    var boundActivator = TryGetRegisteredActivator(identity);
+                    if (boundActivator != null)
+                        return boundActivator;
+                }
+                else
+                {
+                    var realServiceType = identity.ServiceType.GenericTypeArguments[0];
+
+                    if (genericTypeDefinition == typeof (Func<>))
+                    {
+                        var realIdentity = new ServiceIdentity(realServiceType, identity.ServiceName);
+                        var realActivator = GetActivator(realIdentity);
+
+                        if (realActivator != null)
+                            return new FuncActivator(identity, realActivator);
+                    }
+                    else if (genericTypeDefinition == typeof (Lazy<>))
+                    {
+                        var realIdentity = new ServiceIdentity(realServiceType, identity.ServiceName);
+                        var realActivator = GetActivator(realIdentity);
+
+                        if (realActivator != null)
+                            return new LazyActivator(identity, realActivator);
+                    }
+                    else if (genericTypeDefinition == typeof (IEnumerable<>) ||
+                        genericTypeDefinition == typeof (ICollection<>) ||
+                        genericTypeDefinition == typeof (IList<>))
+                    {
+                        var itemActivators = GetAllActivators(realServiceType);
+
+                        return new ArrayActivator(identity, realServiceType, itemActivators);
+                    }
+                }
+            }
 
             return null;
         }
@@ -127,42 +185,6 @@ namespace InjectMe
             return null;
         }
 
-        private IActivator TryCreateGenericActivator(ServiceIdentity identity)
-        {
-            if (identity.ServiceType.IsConstructedGenericType)
-            {
-                var genericTypeDefinition = identity.ServiceType.GetGenericTypeDefinition();
-                var realServiceType = identity.ServiceType.GenericTypeArguments[0];
-
-                if (genericTypeDefinition == typeof(Func<>))
-                {
-                    var realIdentity = new ServiceIdentity(realServiceType, identity.ServiceName);
-                    var realActivator = GetActivator(realIdentity);
-
-                    if (realActivator != null)
-                        return new FuncActivator(identity, realActivator);
-                }
-                else if (genericTypeDefinition == typeof(Lazy<>))
-                {
-                    var realIdentity = new ServiceIdentity(realServiceType, identity.ServiceName);
-                    var realActivator = GetActivator(realIdentity);
-
-                    if (realActivator != null)
-                        return new LazyActivator(identity, realActivator);
-                }
-                else if (genericTypeDefinition == typeof(IEnumerable<>) ||
-                         genericTypeDefinition == typeof(ICollection<>) ||
-                         genericTypeDefinition == typeof(IList<>))
-                {
-                    var itemActivators = GetAllActivators(realServiceType);
-
-                    return new ArrayActivator(identity, realServiceType, itemActivators);
-                }
-            }
-
-            return null;
-        }
-
         public IActivator[] GetAllActivators(Type serviceType)
         {
             var activatorGroup = _activatorGroups.TryGetValue(serviceType);
@@ -170,11 +192,6 @@ namespace InjectMe
             return (activatorGroup != null)
                 ? activatorGroup.GetAllActivators()
                 : new IActivator[0];
-        }
-
-        private IActivationContext CreateInjectionContext()
-        {
-            return new ActivationContext(this);
         }
     }
 }

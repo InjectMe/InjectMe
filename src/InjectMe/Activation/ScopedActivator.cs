@@ -8,7 +8,7 @@ namespace InjectMe.Activation
     {
         public IFactory Factory { get; private set; }
         public ServiceIdentity Identity { get; private set; }
-        public IServiceScope Scope { get; set; }
+        public IServiceScope Scope { get; private set; }
 
         public ScopedActivator(ServiceIdentity identity, IFactory factory, IServiceScope scope)
         {

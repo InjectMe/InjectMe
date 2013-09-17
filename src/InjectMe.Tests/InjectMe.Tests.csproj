@@ -60,17 +60,20 @@
   <ItemGroup>
     <Compile Include="Activation\FactoryActivatorTests.cs" />
     <Compile Include="Activation\InstanceActivatorTests.cs" />
+    <Compile Include="Activation\UnboundActivatorTests.cs" />
     <Compile Include="Registration\AssemblyScanningTests.cs" />
     <Compile Include="ContainerTests.cs" />
     <Compile Include="Activation\PropertyInjectionTests.cs" />
     <Compile Include="TestData\Bar.cs" />
     <Compile Include="TestData\Baz.cs" />
     <Compile Include="TestData\Foo.cs" />
+    <Compile Include="TestData\Gen.cs" />
     <Compile Include="TestData\IBar.cs" />
     <Compile Include="TestData\IBaz.cs" />
     <Compile Include="TestData\IFoo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="TestData\IGen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -79,11 +79,14 @@ namespace InjectMe.Construction
 
         private static Func<IActivationContext, object> TryCreateFactoryDelegate(Type type, IContainer container)
         {
+            var typeInfo = type.GetTypeInfo();
+            if (typeInfo.IsGenericTypeDefinition)
+                throw new UnboundTypeConstructionFailedException(type);
+
             var settings =
                 container.ServiceLocator.TryResolve<ConstructionFactorySettings>() ??
                 new ConstructionFactorySettings();
 
-            var typeInfo = type.GetTypeInfo();
             var constructor = TryGetConstructorDetails(typeInfo, container, settings);
             if (constructor == null)
                 return null;
