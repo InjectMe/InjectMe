@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace InjectMe.Web
@@ -12,9 +13,16 @@ namespace InjectMe.Web
             _container = container;
         }
 
-        public override IController CreateController(RequestContext requestContext, string controllerName)
+        protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
-            return _container.ServiceLocator.Resolve<IController>(controllerName);
+            if (controllerType != null)
+            {
+                var controller = _container.ServiceLocator.TryResolve(controllerType) as IController;
+                if (controller != null)
+                    return controller;
+            }
+
+            return base.GetControllerInstance(requestContext, null);
         }
     }
 }

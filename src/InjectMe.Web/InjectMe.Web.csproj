@@ -66,6 +66,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyScannerExtensions.cs" />
+    <Compile Include="ControllerScanConvention.cs" />
     <Compile Include="ControllerBuilderExtensions.cs" />
     <Compile Include="InjectMeControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
