@@ -142,6 +142,7 @@ namespace InjectMe.Construction
         {
             var candidates =
                 from constructor in typeInfo.DeclaredConstructors
+                where constructor.IsStatic == false
                 let parameters = constructor.GetParameters()
                 orderby parameters.Length descending
                 let activators = TryGetParameterActivators(parameters, container, settings)
