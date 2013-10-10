@@ -16,7 +16,7 @@ namespace InjectMe.Registration
 
         public void ProcessType(IContainerConfiguration container, TypeInfo type)
         {
-            if (type.IsAbstract || type.IsInterface || type.IsGenericTypeDefinition || type.IsNested)
+            if (type.IsAbstract || type.IsInterface || type.IsNested)
                 return;
 
             if (type.Namespace != null &&
@@ -49,23 +49,37 @@ namespace InjectMe.Registration
         {
             if (UsePrefixResolution)
             {
-                foreach (var serviceType in concreteType.ImplementedInterfaces)
-                {
-                    var identity = serviceType.TryGetServiceIdentity(concreteType.Name);
-                    if (identity != null)
-                        yield return identity;
-                }
+                return GetPrefixedIdentities(concreteType);
             }
             else
             {
-                var serviceTypeName = "I" + concreteType.Name;
-                var serviceType = concreteType.ImplementedInterfaces.FirstOrDefault(i => i.Name == serviceTypeName);
+                var defaultIdentity = GetDefaultIdentity(concreteType);
 
-                if (serviceType != null)
-                {
-                    yield return new ServiceIdentity(serviceType);
-                }
+                return defaultIdentity != null
+                    ? new[] { defaultIdentity }
+                    : new ServiceIdentity[0];
             }
+        }
+
+        private static IEnumerable<ServiceIdentity> GetPrefixedIdentities(TypeInfo concreteType)
+        {
+            return from serviceType in concreteType.ImplementedInterfaces
+                   let identity = serviceType.TryGetServiceIdentity(concreteType.Name)
+                   where identity != null
+                   select identity;
+        }
+
+        private static ServiceIdentity GetDefaultIdentity(TypeInfo concreteType)
+        {
+            var serviceTypeName = "I" + concreteType.Name;
+            var serviceType = concreteType.ImplementedInterfaces.FirstOrDefault(i => i.Name == serviceTypeName);
+
+            if (serviceType != null)
+            {
+                return new ServiceIdentity(serviceType);
+            }
+
+            return null;
         }
     }
 }
