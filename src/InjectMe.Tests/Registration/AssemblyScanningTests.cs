@@ -17,7 +17,7 @@ namespace InjectMe.Tests.Registration
                     scanner =>
                     scanner.
                         UseDefaultConventions().
-                        ScanAssemblyContaining<ContainerTests>()));
+                        ScanThisAssembly()));
 
             // Act
             var foo = container.ServiceLocator.Resolve<IFoo>();

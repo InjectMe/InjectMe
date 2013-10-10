@@ -85,7 +85,15 @@ namespace InjectMe.Registration
             return ScanAssembly(assembly);
         }
 
-#if NET45
+#if NET45 || WINDOWS_PHONE
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public IAssemblyScanner ScanThisAssembly()
+        {
+            var callingAssembly = Assembly.GetCallingAssembly();
+
+            return ScanAssembly(callingAssembly);
+        }
+
         public IAssemblyScanner ScanLoadedAssemblies()
         {
             var assemblies = GetLoadedAssemblies();

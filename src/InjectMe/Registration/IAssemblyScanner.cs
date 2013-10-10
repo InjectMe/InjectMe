@@ -13,7 +13,8 @@ namespace InjectMe.Registration
         IAssemblyScanner UseConvention(Func<IScanConvention> conventionDelegate);
         IAssemblyScanner UseConvention<T>() where T : IScanConvention, new();
 
-#if NET45
+#if NET45 || WINDOWS_PHONE
+        IAssemblyScanner ScanThisAssembly();
         IAssemblyScanner ScanLoadedAssemblies();
 #endif
     }
