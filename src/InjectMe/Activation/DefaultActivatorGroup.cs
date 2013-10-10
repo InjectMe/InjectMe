@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using InjectMe.Diagnostics;
 using InjectMe.Extensions;
 
 namespace InjectMe.Activation
 {
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
+    [DebuggerTypeProxy(typeof(DefaultActivatorGroupDebuggerTypeProxy))]
     public class DefaultActivatorGroup : IActivatorGroup
     {
         private readonly IDictionary<ServiceIdentity, IActivator> _activators = new Dictionary<ServiceIdentity, IActivator>();
@@ -49,6 +53,12 @@ namespace InjectMe.Activation
         private static bool IsDefaultIdentity(ServiceIdentity identity)
         {
             return identity.ServiceName == null;
+        }
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private string DebuggerDisplay
+        {
+            get { return ServiceType.ToDebugString(); }
         }
     }
 }

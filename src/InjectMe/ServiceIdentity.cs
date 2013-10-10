@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace InjectMe
 {
-    [DebuggerDisplay("{ServiceType.Name,nq}, {ServiceName,nq}")]
+    [DebuggerDisplay("{ServiceType.FullName,nq}{ServiceName != null ? \", Name = \\\"\" + ServiceName + \"\\\"\" : \"\", nq}")]
     public class ServiceIdentity
     {
         private readonly int _hashCode;

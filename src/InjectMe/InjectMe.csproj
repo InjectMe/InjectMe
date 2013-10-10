@@ -51,6 +51,10 @@
     <Compile Include="Activation\UnboundActivator.cs">
       <DependentUpon>IUnboundActivator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diagnostics\ContainerDebuggerTypeProxy.cs" />
+    <Compile Include="Diagnostics\InstanceActivatorDebuggerTypeProxy.cs" />
+    <Compile Include="Diagnostics\DefaultActivatorGroupDebuggerTypeProxy.cs" />
+    <Compile Include="Diagnostics\ServiceExtensions.cs" />
     <Compile Include="Exceptions\ActivatorGroupAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\UnboundTypeConstructionFailedException.cs" />
     <Compile Include="Exceptions\UnboundTypeActivationFailedException.cs" />

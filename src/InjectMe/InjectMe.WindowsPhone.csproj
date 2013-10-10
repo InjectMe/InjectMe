@@ -113,6 +113,10 @@
     <Compile Include="Construction\IFactory.cs" />
     <Compile Include="Construction\TypeExtensions.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="Diagnostics\ContainerDebuggerTypeProxy.cs" />
+    <Compile Include="Diagnostics\DefaultActivatorGroupDebuggerTypeProxy.cs" />
+    <Compile Include="Diagnostics\InstanceActivatorDebuggerTypeProxy.cs" />
+    <Compile Include="Diagnostics\ServiceExtensions.cs" />
     <Compile Include="Exceptions\ActivatorAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\ActivatorConfigurationAlreadyRegisteredException.cs" />
     <Compile Include="Exceptions\ActivatorGroupAlreadyRegisteredException.cs" />

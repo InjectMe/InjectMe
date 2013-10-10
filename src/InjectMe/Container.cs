@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using InjectMe.Activation;
 using InjectMe.Caching;
+using InjectMe.Diagnostics;
 using InjectMe.Extensions;
 using InjectMe.Registration;
 
@@ -10,6 +12,8 @@ namespace InjectMe
 {
     using ActivationContext = Activation.ActivationContext;
 
+    [DebuggerDisplay("Services = {_activatorGroups.Count}")]
+    [DebuggerTypeProxy(typeof(ContainerDebuggerTypeProxy))]
     public class Container : IContainer
     {
         private readonly IDictionary<Type, IActivatorGroup> _activatorGroups = new Dictionary<Type, IActivatorGroup>();
