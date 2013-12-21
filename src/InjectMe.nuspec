@@ -6,6 +6,7 @@
     <title>InjectMe</title>
     <authors>Tobias Persson</authors>
     <owners>Tobias Persson</owners>
+    <projectUrl>http://www.injectme.net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Dependency injector</description>
     <copyright>Copyright 2013 © Tobias Persson. All rights reserved.</copyright>
