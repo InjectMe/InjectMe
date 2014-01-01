@@ -4,8 +4,6 @@ namespace InjectMe
 {
     public interface IServiceLocator
     {
-        IContainer Container { get; }
-
         T[] ResolveAll<T>() where T : class;
         T[] TryResolveAll<T>() where T : class;
         T Resolve<T>(string serviceName = null) where T : class;

@@ -5,17 +5,17 @@ namespace InjectMe
 {
     public class ServiceLocator : IServiceLocator
     {
-        public IContainer Container { get; private set; }
+        private readonly IContainer _container;
 
         public ServiceLocator(IContainer container)
         {
-            Container = container;
+            _container = container;
         }
 
         public T[] ResolveAll<T>() where T : class
         {
             var serviceType = typeof(T);
-            var instances = Container.ResolveAll(serviceType);
+            var instances = _container.ResolveAll(serviceType);
             if (instances == null)
                 throw new ServiceNotRegisteredException(serviceType);
 
@@ -27,7 +27,7 @@ namespace InjectMe
         public T[] TryResolveAll<T>() where T : class
         {
             var serviceType = typeof(T);
-            var instances = Container.ResolveAll(serviceType);
+            var instances = _container.ResolveAll(serviceType);
             if (instances == null)
                 return new T[0];
 
@@ -54,7 +54,7 @@ namespace InjectMe
 
         public object[] ResolveAll(Type serviceType)
         {
-            var instances = Container.ResolveAll(serviceType);
+            var instances = _container.ResolveAll(serviceType);
             if (instances == null)
                 throw new ServiceNotRegisteredException(serviceType);
             
@@ -63,7 +63,7 @@ namespace InjectMe
 
         public object[] TryResolveAll(Type serviceType)
         {
-            var instances = Container.ResolveAll(serviceType);
+            var instances = _container.ResolveAll(serviceType);
             if (instances == null)
                 return new object[0];
 
@@ -82,7 +82,7 @@ namespace InjectMe
         public object TryResolve(Type serviceType, string serviceName)
         {
             var identity = new ServiceIdentity(serviceType, serviceName);
-            var instance = Container.Resolve(identity);
+            var instance = _container.Resolve(identity);
 
             return instance;
         }
