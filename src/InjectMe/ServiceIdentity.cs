@@ -1,9 +1,10 @@
 using System;
 using System.Diagnostics;
+using InjectMe.Diagnostics;
 
 namespace InjectMe
 {
-    [DebuggerDisplay("{ServiceType.FullName,nq}{ServiceName != null ? \", Name = \\\"\" + ServiceName + \"\\\"\" : \"\", nq}")]
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class ServiceIdentity
     {
         private readonly int _hashCode;
@@ -46,6 +47,22 @@ namespace InjectMe
                 hashCode ^= ServiceName.ToLowerInvariant().GetHashCode();
 
             return hashCode;
+        }
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private string DebuggerDisplay
+        {
+            get
+            {
+                var result = ServiceType.ToDebugString();
+
+                if (ServiceName != null)
+                {
+                    result += ", Name = \"" + ServiceName + "\"";
+                }
+
+                return result;
+            }
         }
     }
 }
