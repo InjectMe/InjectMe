@@ -58,9 +58,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Activation\FactoryActivatorTests.cs" />
-    <Compile Include="Activation\InstanceActivatorTests.cs" />
-    <Compile Include="Activation\UnboundActivatorTests.cs" />
+    <Compile Include="Activation\ArrayActivationTests.cs" />
+    <Compile Include="Activation\DefaultActivatorGroupTests.cs" />
+    <Compile Include="Activation\LazyActivationTests.cs" />
+    <Compile Include="Activation\ScopedActivationTests.cs" />
+    <Compile Include="Activation\FuncActivationTests.cs" />
+    <Compile Include="Activation\InstanceActivationTests.cs" />
+    <Compile Include="Activation\TransientHierarchicalActivationTests.cs" />
+    <Compile Include="Activation\UnboundActivationTests.cs" />
     <Compile Include="Registration\AssemblyScanningTests.cs" />
     <Compile Include="ContainerTests.cs" />
     <Compile Include="Activation\PropertyInjectionTests.cs" />

@@ -5,8 +5,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace InjectMe.Tests.Activation
 {
     [TestClass]
-    public class UnboundActivatorTests : TestBase
+    public class UnboundActivationTests : TestBase
     {
+        [TestMethod]
+        public void a()
+        {
+            var container = Container.Create(c =>
+            {
+                c.Register(typeof(Gen<>)).AsSingleton();
+            });
+
+            var gen = container.ServiceLocator.Resolve<Gen<int>>();
+
+            Assert.IsNotNull(gen);
+        }
+
         [TestMethod]
         public void UnboundTypesShouldResolveForAllTypes()
         {

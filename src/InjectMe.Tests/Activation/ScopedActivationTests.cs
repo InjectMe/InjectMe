@@ -1,4 +1,5 @@
-﻿using InjectMe.Activation;
+﻿using System;
+using InjectMe.Activation;
 using InjectMe.Construction;
 using InjectMe.Tests.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,7 +8,7 @@ using Moq;
 namespace InjectMe.Tests.Activation
 {
     [TestClass]
-    public class FactoryActivatorTests : TestBase
+    public class ScopedActivationTests : TestBase
     {
         [TestMethod]
         public void SingletonServicesShouldBeCached()

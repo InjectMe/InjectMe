@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace InjectMe.Tests.Activation
 {
     [TestClass]
-    public class InstanceActivatorTests
+    public class InstanceActivationTests
     {
         [TestMethod]
         public void InstanceServiceShouldReturnSpecifiedInstance()
