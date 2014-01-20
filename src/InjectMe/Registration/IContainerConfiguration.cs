@@ -3,8 +3,16 @@ using InjectMe.Caching;
 
 namespace InjectMe.Registration
 {
+    /// <summary>
+    /// The container configuration is used to register services in the container.
+    /// </summary>
     public interface IContainerConfiguration
     {
+        /// <summary>
+        /// Register an activator configuration.
+        /// </summary>
+        /// <param name="activatorConfiguration"></param>
+        /// <returns></returns>
         IContainerConfiguration Register(IActivatorConfiguration activatorConfiguration);
         IContainerConfiguration Register(Type serviceType, Action<IFluentConfiguration> action);
 
