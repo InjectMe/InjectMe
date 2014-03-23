@@ -13,7 +13,7 @@
     <tags>Dependency Injection</tags>
     <dependencies>
       <dependency id="InjectMe" version="[0.8,1.0)" />
-      <dependency id="Microsoft.AspNet.Mvc" version="[4.0.20710.0, 4.1)" />
+      <dependency id="Microsoft.AspNet.Mvc" version="[4.0.20710.0, 5.2)" />
     </dependencies>
   </metadata>
   <files>
