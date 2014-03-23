@@ -59,9 +59,9 @@
   <ItemGroup>
     <Compile Include="ApiControllerScanConvention.cs" />
     <Compile Include="InjectMeDependencyResolver.cs" />
-    <Compile Include="HttpConfigurationExtensions.cs" />
+    <Compile Include="Registration\HttpConfigurationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AssemblyScannerExtensions.cs" />
+    <Compile Include="Registration\AssemblyScannerExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,6 +1,7 @@
-using InjectMe.Registration;
+using InjectMe.Web;
 
-namespace InjectMe.Web
+// ReSharper disable once CheckNamespace
+namespace InjectMe.Registration
 {
     public static class AssemblyScannerExtensions
     {

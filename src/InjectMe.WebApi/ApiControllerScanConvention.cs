@@ -16,7 +16,7 @@ namespace InjectMe.WebApi
 
         public void ProcessType(IContainerConfiguration container, TypeInfo type)
         {
-            if (type.IsAbstract || type.IsInterface || type.IsGenericTypeDefinition || type.IsNested)
+            if (type.IsAbstract || type.IsInterface || type.IsNested)
                 return;
 
             if (ApiControllerType.IsAssignableFrom(type))
