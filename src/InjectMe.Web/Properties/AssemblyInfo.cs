@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Resources;
 using System.Reflection;
-using System.Security;
 
 [assembly: AssemblyProduct("InjectMe Web")]
 [assembly: AssemblyTitle("InjectMe Web")]
@@ -17,4 +16,4 @@ using System.Security;
 [assembly: AssemblyFileVersion("0.8.0.0")]
 
 [assembly: CLSCompliant(true)]
-[assembly: AllowPartiallyTrustedCallers]
+
