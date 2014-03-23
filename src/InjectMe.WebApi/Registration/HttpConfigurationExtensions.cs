@@ -8,7 +8,12 @@ namespace InjectMe.Registration
     {
         public static void SetInjectMeDependencyResolver(this HttpConfiguration httpConfiguration, IContainer container)
         {
-            httpConfiguration.DependencyResolver = new InjectMeDependencyResolver(container);
+            SetInjectMeDependencyResolver(httpConfiguration, container.ServiceLocator);
+        }
+
+        public static void SetInjectMeDependencyResolver(this HttpConfiguration httpConfiguration, IServiceLocator serviceLocator)
+        {
+            httpConfiguration.DependencyResolver = new InjectMeDependencyResolver(serviceLocator);
         }
     }
 }

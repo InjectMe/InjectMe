@@ -6,18 +6,18 @@ namespace InjectMe.Web
 {
     public class InjectMeControllerFactory : DefaultControllerFactory
     {
-        private readonly IContainer _container;
+        private readonly IServiceLocator _serviceLocator;
 
-        public InjectMeControllerFactory(IContainer container)
+        public InjectMeControllerFactory(IServiceLocator serviceLocator)
         {
-            _container = container;
+            _serviceLocator = serviceLocator;
         }
 
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
             if (controllerType != null)
             {
-                var controller = _container.ServiceLocator.TryResolve(controllerType) as IController;
+                var controller = _serviceLocator.TryResolve(controllerType) as IController;
                 if (controller != null)
                     return controller;
             }

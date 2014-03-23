@@ -8,7 +8,12 @@ namespace InjectMe.Registration
     {
         public static void SetInjectMeControllerFactory(this ControllerBuilder controllerBuilder, IContainer container)
         {
-            var controllerFactory = new InjectMeControllerFactory(container);
+            SetInjectMeControllerFactory(controllerBuilder, container.ServiceLocator);
+        }
+
+        public static void SetInjectMeControllerFactory(this ControllerBuilder controllerBuilder, IServiceLocator serviceLocator)
+        {
+            var controllerFactory = new InjectMeControllerFactory(serviceLocator);
 
             controllerBuilder.SetControllerFactory(controllerFactory);
         }

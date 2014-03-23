@@ -6,11 +6,11 @@ namespace InjectMe.WebApi
 {
     public class InjectMeDependencyResolver : IDependencyResolver
     {
-        private readonly IContainer _container;
+        private readonly IServiceLocator _serviceLocator;
 
-        public InjectMeDependencyResolver(IContainer container)
+        public InjectMeDependencyResolver(IServiceLocator serviceLocator)
         {
-            _container = container;
+            _serviceLocator = serviceLocator;
         }
 
         public IDependencyScope BeginScope()
@@ -20,12 +20,12 @@ namespace InjectMe.WebApi
 
         public object GetService(Type serviceType)
         {
-            return _container.ServiceLocator.TryResolve(serviceType);
+            return _serviceLocator.TryResolve(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return _container.ServiceLocator.ResolveAll(serviceType);
+            return _serviceLocator.ResolveAll(serviceType);
         }
 
         public void Dispose()
