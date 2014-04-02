@@ -1,21 +1,24 @@
-﻿namespace InjectMe.Activation
+﻿using System;
+
+namespace InjectMe.Activation
 {
     public class ServiceLoaderActivator<TService> : IActivator
         where TService : class
     {
-        private readonly IServiceLoader<TService> _loader;
+        private readonly Lazy<IServiceLoader<TService>> _lazyServiceLoader;
 
         public ServiceIdentity Identity { get; private set; }
 
-        public ServiceLoaderActivator(IServiceLoader<TService> loader)
+        public ServiceLoaderActivator(Lazy<IServiceLoader<TService>> lazyServiceLoader)
         {
-            _loader = loader;
+            _lazyServiceLoader = lazyServiceLoader;
+
             Identity = new ServiceIdentity(typeof(TService));
         }
 
         public object ActivateService(IActivationContext context)
         {
-            return _loader.LoadService();
+            return _lazyServiceLoader.Value.LoadService();
         }
     }
 }
