@@ -30,7 +30,7 @@ namespace InjectMe.Tests.Activation
 
         class Foo
         {
-            public Bar Bar { get; private set; }
+            public Bar Bar { get; set; }
             public Baz Baz { get; set; }
         }
 
