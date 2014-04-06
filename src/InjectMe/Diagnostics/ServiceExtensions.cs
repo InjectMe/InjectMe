@@ -10,7 +10,7 @@ namespace InjectMe.Diagnostics
     {
         public static string ToDebugString(this Type type)
         {
-            var result = type.Name;
+            var result = type.FullName;
             var typeInfO = type.GetTypeInfo();
 
             if (typeInfO.IsGenericType)

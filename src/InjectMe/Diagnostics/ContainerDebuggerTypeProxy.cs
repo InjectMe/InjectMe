@@ -28,7 +28,9 @@ namespace InjectMe.Diagnostics
         {
             var activatorGroups = (IDictionary<Type, IActivatorGroup>)ActivatorGroupsField.GetValue(container);
 
-            return activatorGroups.Values.ToArray();
+            return activatorGroups.Values.
+                OrderBy(group => group.ServiceType.FullName).
+                ToArray();
         }
     }
 }
