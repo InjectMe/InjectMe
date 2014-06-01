@@ -102,23 +102,35 @@ namespace InjectMe.Construction
                     Expression.Assign(serviceExpression, constructionExpression)
                 };
 
-                foreach (var property in typeInfo.DeclaredProperties)
-                {
-                    var activator = TryGetPropertyActivator(property, container, settings);
-                    if (activator == null)
-                        continue;
+                var properties = GetProperties(typeInfo);
 
-                    var propertyValueExpression = CreateActivationExpression(activator, contextExpression);
-                    var setterExpression = Expression.Call(serviceExpression, property.SetMethod, new[] { propertyValueExpression });
+                foreach (var property in properties)
+                {
+                    if (property.SetMethod == null)
+                        continue;
 
                     if (settings.PropertyInjectionAttribute != null)
                     {
+                        if (property.IsDefined(settings.PropertyInjectionAttribute) == false)
+                            continue;
+
+                        var setterExpression = TryCreatePropertySetterExpression(property, container, settings, contextExpression, serviceExpression);
+                        if (setterExpression == null)
+                            continue;
+
                         // Always set property when attribute is used
                         expressions.Add(setterExpression);
                     }
                     else
                     {
-                        // Only set property if it is null when attribute isn't used
+                        if (property.GetMethod == null)
+                            continue;
+
+                        var setterExpression = TryCreatePropertySetterExpression(property, container, settings, contextExpression, serviceExpression);
+                        if (setterExpression == null)
+                            continue;
+
+                        // Only set property if it is null
                         expressions.Add(
                             Expression.Condition(
                                 Expression.Equal(
@@ -136,6 +148,40 @@ namespace InjectMe.Construction
             return Expression.
                 Lambda<Func<IActivationContext, object>>(constructionExpression, contextExpression).
                 Compile();
+        }
+
+        private static IEnumerable<PropertyInfo> GetProperties(TypeInfo type)
+        {
+            while (type != null)
+            {
+                foreach (var property in type.DeclaredProperties)
+                {
+                    yield return property;
+                }
+
+                var baseType = type.BaseType;
+                if (baseType == null)
+                    break;
+
+                type = baseType.GetTypeInfo();
+            }
+        }
+
+        private static Expression TryCreatePropertySetterExpression(
+            PropertyInfo property,
+            IContainer container,
+            ConstructionFactorySettings settings,
+            ParameterExpression contextExpression,
+            ParameterExpression serviceExpression)
+        {
+            var activator = TryGetActivator(property.PropertyType, property.Name, container, settings);
+            if (activator == null)
+                return null;
+
+            var propertyValueExpression = CreateActivationExpression(activator, contextExpression);
+            var setterExpression = Expression.Call(serviceExpression, property.SetMethod, new[] { propertyValueExpression });
+
+            return setterExpression;
         }
 
         private static ConstructorDetails TryGetConstructorDetails(TypeInfo typeInfo, IContainer container, ConstructionFactorySettings settings)
@@ -191,23 +237,6 @@ namespace InjectMe.Construction
             }
 
             return activators;
-        }
-
-        private static IActivator TryGetPropertyActivator(PropertyInfo property, IContainer container, ConstructionFactorySettings settings)
-        {
-            if (settings.PropertyInjectionAttribute != null)
-            {
-                if (property.IsDefined(settings.PropertyInjectionAttribute) == false)
-                    return null;
-            }
-            else
-            {
-                if (!property.GetMethod.IsPublic ||
-                    !property.SetMethod.IsPublic)
-                    return null;
-            }
-
-            return TryGetActivator(property.PropertyType, property.Name, container, settings);
         }
 
         private static IActivator TryGetActivator(Type serviceType, string referenceName, IContainer container, ConstructionFactorySettings settings)

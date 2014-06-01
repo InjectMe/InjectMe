@@ -30,6 +30,28 @@ namespace InjectMe.Tests.Activation
         }
 
         [TestMethod]
+        public void PropertiesOnSubTypesShouldBeInjected()
+        {
+            // Arrange
+            var container = Container.Create(
+                configuration =>
+                configuration.
+                    RegisterInstance(new ConstructionFactorySettings
+                    {
+                        UsePropertyInjection = true
+                    }).
+                    RegisterSingleton<SuperBar>().
+                    RegisterSingleton<Foo>());
+
+            // Act
+            var bar = container.ServiceLocator.Resolve<SuperBar>();
+
+            // Assert
+            Assert.IsNotNull(bar);
+            Assert.IsNotNull(bar.Foo);
+        }
+
+        [TestMethod]
         public void PropertiesWithAttributeShouldBeInjected()
         {
             // Arrange
@@ -99,7 +121,11 @@ namespace InjectMe.Tests.Activation
 
         private class Bar
         {
-            public Foo Foo { get; set; }
+            public Foo Foo { get; private set; }
+        }
+
+        private class SuperBar : Bar
+        {
         }
 
         private class BarWithAttribute
