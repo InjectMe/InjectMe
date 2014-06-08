@@ -1,4 +1,5 @@
 using System;
+using InjectMe.Diagnostics;
 
 namespace InjectMe
 {
@@ -14,7 +15,7 @@ namespace InjectMe
 
         private static string CreateMessage(Type classType)
         {
-            return string.Format("No valid constructor could be located for {0}.", classType.Name);
+            return string.Format("No valid constructor could be located for {0}.", classType.ToDebugString());
         }
     }
 }
