@@ -58,18 +58,21 @@ namespace InjectMe.Registration
 
         public IAssemblyScanner ScanAssembly(Assembly assembly)
         {
-            var types = assembly.DefinedTypes;
-
-            foreach (var typeFilter in _typeFilters)
+            if (_assemblyFilters.Any(filter => filter(assembly)))
             {
-                types = types.Where(typeFilter);
-            }
+                var types = assembly.DefinedTypes;
 
-            foreach (var type in types)
-            {
-                foreach (var convention in _conventions)
+                foreach (var typeFilter in _typeFilters)
                 {
-                    convention.ProcessType(_configuration, type);
+                    types = types.Where(typeFilter);
+                }
+
+                foreach (var type in types)
+                {
+                    foreach (var convention in _conventions)
+                    {
+                        convention.ProcessType(_configuration, type);
+                    }
                 }
             }
 
@@ -98,11 +101,6 @@ namespace InjectMe.Registration
         {
             var assemblies = GetLoadedAssemblies();
 
-            foreach (var assemblyFilter in _assemblyFilters)
-            {
-                assemblies = assemblies.Where(assemblyFilter);
-            }
-
             foreach (var assembly in assemblies)
             {
                 ScanAssembly(assembly);
@@ -128,7 +126,7 @@ namespace InjectMe.Registration
         {
             return
                 type.Namespace != null &&
-                type.Namespace.StartsWith("InjectMe.DI");
+                type.Namespace.StartsWith("InjectMe");
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
