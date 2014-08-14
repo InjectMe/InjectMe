@@ -5,20 +5,32 @@ namespace InjectMe.Activation
     public class ServiceLoaderActivator<TService> : IActivator
         where TService : class
     {
-        private readonly Lazy<IServiceLoader<TService>> _lazyServiceLoader;
+        private readonly Func<IActivationContext, IServiceLoader<TService>> _serviceLoaderFactory;
 
         public ServiceIdentity Identity { get; private set; }
 
-        public ServiceLoaderActivator(Lazy<IServiceLoader<TService>> lazyServiceLoader)
+        public ServiceLoaderActivator(IContainer container)
         {
-            _lazyServiceLoader = lazyServiceLoader;
+            _serviceLoaderFactory = GetServiceLoaderFactory(container);
 
             Identity = new ServiceIdentity(typeof(TService));
         }
 
         public object ActivateService(IActivationContext context)
         {
-            return _lazyServiceLoader.Value.LoadService();
+            var serviceLoader = _serviceLoaderFactory(context);
+            var service = serviceLoader.LoadService();
+
+            return service;
+        }
+
+        private static Func<IActivationContext, IServiceLoader<TService>> GetServiceLoaderFactory(IContainer container)
+        {
+            var serviceLoaderType = typeof(IServiceLoader<TService>);
+            var serviceLoaderIdentity = new ServiceIdentity(serviceLoaderType);
+            var serviceLoaderActivator = container.GetActivator(serviceLoaderIdentity);
+
+            return context => (IServiceLoader<TService>)serviceLoaderActivator.ActivateService(context);
         }
     }
 }

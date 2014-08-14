@@ -65,6 +65,7 @@
     <Compile Include="Activation\ScopedActivationTests.cs" />
     <Compile Include="Activation\FuncActivationTests.cs" />
     <Compile Include="Activation\InstanceActivationTests.cs" />
+    <Compile Include="Activation\ServiceLoaderActivatorTests.cs" />
     <Compile Include="Activation\TransientHierarchicalActivationTests.cs" />
     <Compile Include="Activation\UnboundActivationTests.cs" />
     <Compile Include="Registration\AssemblyScanningTests.cs" />

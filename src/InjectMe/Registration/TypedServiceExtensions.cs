@@ -8,29 +8,42 @@ namespace InjectMe.Registration
 {
     public static class TypedServiceExtensions
     {
+        private static readonly MethodInfo TypedFuncMethod;
+        private static readonly MethodInfo TypedLazyDelegate;
+        private static readonly MethodInfo TypedArrayDelegate;
+
+        static TypedServiceExtensions()
+        {
+            var methods = typeof(TypedServiceExtensions).
+                GetTypeInfo().
+                DeclaredMethods.
+                ToArray();
+
+            TypedFuncMethod = methods.Single(m => m.Name == "GetTypedFuncDelegate" && m.IsGenericMethod);
+            TypedLazyDelegate = methods.Single(m => m.Name == "GetTypedLazyDelegate" && m.IsGenericMethod);
+            TypedArrayDelegate = methods.Single(m => m.Name == "GetTypedArrayDelegate" && m.IsGenericMethod);
+        }
+
         public static Func<IActivationContext, object> GetTypedFuncDelegate(this IActivator activator)
         {
-            return CallGenericMethod("GetTypedFuncDelegate", activator.Identity.ServiceType, activator);
+            return CallGenericMethod(TypedFuncMethod, activator.Identity.ServiceType, activator);
         }
 
         public static Func<IActivationContext, object> GetTypedLazyDelegate(this IActivator activator)
         {
-            return CallGenericMethod("GetTypedLazyDelegate", activator.Identity.ServiceType, activator);
+            return CallGenericMethod(TypedLazyDelegate, activator.Identity.ServiceType, activator);
         }
 
         public static Func<IActivationContext, object> GetTypedArrayDelegate(this IEnumerable<IActivator> activators, Type serviceType)
         {
-            return CallGenericMethod("GetTypedArrayDelegate", serviceType, activators);
+            return CallGenericMethod(TypedArrayDelegate, serviceType, activators);
         }
 
-        private static Func<IActivationContext, object> CallGenericMethod(string methodName, Type genericType, params object[] arguments)
+        private static Func<IActivationContext, object> CallGenericMethod(MethodInfo method, Type genericType, params object[] arguments)
         {
-            var method = typeof(TypedServiceExtensions).
-                GetTypeInfo().
-                DeclaredMethods.Single(m => m.Name == methodName && m.IsGenericMethod).
-                MakeGenericMethod(genericType);
-
-            return (Func<IActivationContext, object>)method.Invoke(null, arguments);
+            return (Func<IActivationContext, object>)method.
+                MakeGenericMethod(genericType).
+                Invoke(null, arguments);
         }
 
         // ReSharper disable UnusedMember.Local

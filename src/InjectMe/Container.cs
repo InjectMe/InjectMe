@@ -16,6 +16,13 @@ namespace InjectMe
     [DebuggerTypeProxy(typeof(ContainerDebuggerTypeProxy))]
     public class Container : IContainer
     {
+        private static readonly Type FuncServiceType = typeof(Func<>);
+        private static readonly Type FuncContextServiceType = typeof(Func<,>);
+        private static readonly Type LazyServiceType = typeof(Lazy<>);
+        private static readonly Type EnumerableServiceType = typeof(IEnumerable<>);
+        private static readonly Type CollectionServiceType = typeof(ICollection<>);
+        private static readonly Type ListServiceType = typeof(IList<>);
+
         private readonly IDictionary<Type, IActivatorGroup> _activatorGroups = new Dictionary<Type, IActivatorGroup>();
 
         public IServiceLocator ServiceLocator { get; private set; }
@@ -146,7 +153,7 @@ namespace InjectMe
                 {
                     var realServiceType = identity.ServiceType.GenericTypeArguments[0];
 
-                    if (genericTypeDefinition == typeof (Func<>))
+                    if (genericTypeDefinition == FuncServiceType)
                     {
                         var realIdentity = new ServiceIdentity(realServiceType, identity.ServiceName);
                         var realActivator = GetActivator(realIdentity);
@@ -154,7 +161,7 @@ namespace InjectMe
                         if (realActivator != null)
                             return new FuncActivator(identity, realActivator);
                     }
-                    else if (genericTypeDefinition == typeof (Lazy<>))
+                    else if (genericTypeDefinition == LazyServiceType)
                     {
                         var realIdentity = new ServiceIdentity(realServiceType, identity.ServiceName);
                         var realActivator = GetActivator(realIdentity);
@@ -162,9 +169,10 @@ namespace InjectMe
                         if (realActivator != null)
                             return new LazyActivator(identity, realActivator);
                     }
-                    else if (genericTypeDefinition == typeof (IEnumerable<>) ||
-                        genericTypeDefinition == typeof (ICollection<>) ||
-                        genericTypeDefinition == typeof (IList<>))
+                    else if (
+                        genericTypeDefinition == EnumerableServiceType ||
+                        genericTypeDefinition == CollectionServiceType ||
+                        genericTypeDefinition == ListServiceType)
                     {
                         var itemActivators = GetAllActivators(realServiceType);
 
