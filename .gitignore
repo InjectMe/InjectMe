@@ -8,3 +8,6 @@ obj
 
 # mstest test results
 TestResults
+
+# Visual Studio
+*.sln.ide
