@@ -9,9 +9,13 @@ namespace InjectMe.Registration
     public partial class AssemblyScanner : IAssemblyScanner
     {
         private static readonly Type PreventAutomaticRegistrationAttributeType = typeof(PreventAutomaticRegistrationAttribute);
+        private static readonly string[] FilteredAssemblies =
+        {
+            "InjectMe",
+            "Microsoft® .NET Framework"
+        };
 
         private readonly IContainerConfiguration _configuration;
-        private readonly IList<Func<Assembly, bool>> _assemblyFilters = new List<Func<Assembly, bool>>();
         private readonly IList<Func<TypeInfo, bool>> _typeFilters = new List<Func<TypeInfo, bool>>();
         private readonly IList<IScanConvention> _conventions = new List<IScanConvention>();
 
@@ -21,7 +25,6 @@ namespace InjectMe.Registration
 
             AddTypeFilter(type =>
                 !IsAnonymousType(type) &&
-                !IsManuallyRegisteredType(type) &&
                 !HasPreventionAttribute(type)
             );
         }
@@ -44,39 +47,35 @@ namespace InjectMe.Registration
             return UseConvention(convention);
         }
 
-        public IAssemblyScanner AddAssemblyFilter(Func<Assembly, bool> assemblyFilter)
-        {
-            _assemblyFilters.Add(assemblyFilter);
-            return this;
-        }
-
         public IAssemblyScanner AddTypeFilter(Func<TypeInfo, bool> typeFilter)
         {
             _typeFilters.Add(typeFilter);
             return this;
         }
 
-        public IAssemblyScanner ScanAssembly(Assembly assembly)
+        public IAssemblyScanner ScanAssemblies(IEnumerable<Assembly> assemblies)
         {
-            if (_assemblyFilters.Any(filter => filter(assembly)))
+            var types =
+                from assembly in assemblies
+                where IsValidForScanning(assembly)
+                from type in assembly.DefinedTypes
+                where IsValidForScanning(type)
+                select type;
+
+            foreach (var type in types)
             {
-                var types = assembly.DefinedTypes;
-
-                foreach (var typeFilter in _typeFilters)
+                foreach (var convention in _conventions)
                 {
-                    types = types.Where(typeFilter);
-                }
-
-                foreach (var type in types)
-                {
-                    foreach (var convention in _conventions)
-                    {
-                        convention.ProcessType(_configuration, type);
-                    }
+                    convention.ProcessType(_configuration, type);
                 }
             }
 
             return this;
+        }
+
+        public IAssemblyScanner ScanAssemblies(params Assembly[] assemblies)
+        {
+            return ScanAssemblies((IEnumerable<Assembly>)assemblies);
         }
 
         public IAssemblyScanner ScanAssemblyContaining<T>()
@@ -85,7 +84,7 @@ namespace InjectMe.Registration
             var typeInfo = type.GetTypeInfo();
             var assembly = typeInfo.Assembly;
 
-            return ScanAssembly(assembly);
+            return ScanAssemblies(assembly);
         }
 
 #if NET45 || WINDOWS_PHONE
@@ -94,17 +93,28 @@ namespace InjectMe.Registration
         {
             var callingAssembly = Assembly.GetCallingAssembly();
 
-            return ScanAssembly(callingAssembly);
+            return ScanAssemblies(callingAssembly);
         }
 
         public IAssemblyScanner ScanLoadedAssemblies()
         {
             var assemblies = GetLoadedAssemblies();
 
-            foreach (var assembly in assemblies)
-            {
-                ScanAssembly(assembly);
-            }
+            ScanAssemblies(assemblies);
+
+            return this;
+        }
+
+        public IAssemblyScanner ScanLoadedAssemblies(Func<Assembly, bool> filter)
+        {
+            if (filter == null)
+                throw new ArgumentNullException("filter");
+
+            var assemblies = from assembly in GetLoadedAssemblies()
+                             where filter(assembly)
+                             select assembly;
+
+            ScanAssemblies(assemblies);
 
             return this;
         }
@@ -121,12 +131,21 @@ namespace InjectMe.Registration
             return type.Name.StartsWith("<>");
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool IsManuallyRegisteredType(TypeInfo type)
+        private bool IsValidForScanning(Assembly assembly)
         {
-            return
-                type.Namespace != null &&
-                type.Namespace.StartsWith("InjectMe");
+            var productAttribute = assembly.GetCustomAttribute<AssemblyProductAttribute>();
+            if (productAttribute != null)
+            {
+                if (FilteredAssemblies.Contains(productAttribute.Product))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private bool IsValidForScanning(TypeInfo type)
+        {
+            return _typeFilters.All(filter => filter(type));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

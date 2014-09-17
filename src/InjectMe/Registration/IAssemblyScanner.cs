@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace InjectMe.Registration
 {
     public interface IAssemblyScanner
     {
-        IAssemblyScanner AddAssemblyFilter(Func<Assembly, bool> assemblyFilter);
         IAssemblyScanner AddTypeFilter(Func<TypeInfo, bool> typeFilter);
-        IAssemblyScanner ScanAssembly(Assembly assembly);
+        IAssemblyScanner ScanAssemblies(params Assembly[] assemblies);
+        IAssemblyScanner ScanAssemblies(IEnumerable<Assembly> assemblies);
         IAssemblyScanner ScanAssemblyContaining<T>();
         IAssemblyScanner UseConvention(IScanConvention convention);
         IAssemblyScanner UseConvention(Func<IScanConvention> conventionDelegate);
@@ -16,6 +17,7 @@ namespace InjectMe.Registration
 #if NET45 || WINDOWS_PHONE
         IAssemblyScanner ScanThisAssembly();
         IAssemblyScanner ScanLoadedAssemblies();
+        IAssemblyScanner ScanLoadedAssemblies(Func<Assembly, bool> filter);
 #endif
     }
 }

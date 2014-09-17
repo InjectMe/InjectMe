@@ -2,7 +2,7 @@
 using System.Resources;
 using System.Reflection;
 
-[assembly: AssemblyProduct("InjectMe WebApi")]
+[assembly: AssemblyProduct("InjectMe")]
 [assembly: AssemblyTitle("InjectMe WebApi")]
 [assembly: AssemblyDescription("Help library...")]
 [assembly: AssemblyConfiguration("")]

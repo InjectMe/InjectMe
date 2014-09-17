@@ -11,19 +11,36 @@ namespace InjectMe.Tests.Registration
         public void ServicesShouldBeAutomaticallyRegistered()
         {
             // Arrange
-            var container = Container.Create(
-                configuration =>
-                configuration.Scan(
-                    scanner =>
+            var container = Container.Create(config =>
+            {
+                config.Scan(scanner =>
+                {
                     scanner.
                         UseDefaultConventions().
-                        ScanThisAssembly()));
+                        ScanThisAssembly();
+                });
+            });
 
             // Act
             var foo = container.ServiceLocator.Resolve<IFoo>();
 
             // Assert
             Assert.IsNotNull(foo);
+        }
+
+        [TestMethod]
+        public void TypesInDefaultFrameworksShouldNotBeLoaded()
+        {
+            // Act
+            var container = Container.Create(config =>
+            {
+                config.Scan(scanner =>
+                {
+                    scanner.
+                        UseDefaultConventions().
+                        ScanLoadedAssemblies(assembly => assembly.ManifestModule.Name != "Moq.dll");
+                });
+            });
         }
     }
 }

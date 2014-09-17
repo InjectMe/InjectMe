@@ -1,4 +1,5 @@
 using InjectMe.Web;
+using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
 
@@ -14,12 +15,11 @@ namespace InjectMe.Registration
 
         public static IAssemblyScanner ScanReferencedAssemblies(this IAssemblyScanner scanner)
         {
-            var assemblies = BuildManager.GetReferencedAssemblies();
+            var assemblies = BuildManager.
+                GetReferencedAssemblies().
+                Cast<Assembly>();
 
-            foreach (Assembly assembly in assemblies)
-            {
-                scanner.ScanAssembly(assembly);
-            }
+            scanner.ScanAssemblies(assemblies);
 
             return scanner;
         }
