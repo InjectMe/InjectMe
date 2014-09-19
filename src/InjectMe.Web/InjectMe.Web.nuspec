@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>InjectMe</id>
+    <id>InjectMe.Web</id>
     <version>0.0</version>
-    <title>InjectMe</title>
+    <title>InjectMe Web</title>
     <authors>Tobias Persson</authors>
     <owners>Tobias Persson</owners>
     <projectUrl>http://www.injectme.net</projectUrl>
@@ -11,8 +11,12 @@
     <description>Dependency injector</description>
     <copyright>Copyright 2013 © Tobias Persson. All rights reserved.</copyright>
     <tags>Dependency Injection</tags>
+    <dependencies>
+      <dependency id="InjectMe" version="[0.8,1.0)" />
+      <dependency id="Microsoft.AspNet.Mvc" version="[4.0.20710.0, 5.2)" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="InjectMe\bin\release\**\InjectMe.*" target="lib" />
+    <file src="bin\release\InjectMe.Web.*" target="lib\net45" />
   </files>
 </package>
