@@ -4,7 +4,11 @@ namespace InjectMe.Caching
 {
     public abstract class ServiceScopeAttribute : Attribute
     {
-        public IServiceScope Scope { get; private set; }
+        public IServiceScope Scope { get; set; }
+
+        protected ServiceScopeAttribute()
+        {
+        }
 
         protected ServiceScopeAttribute(IServiceScope scope)
         {
