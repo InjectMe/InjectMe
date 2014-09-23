@@ -33,11 +33,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activation\IUnboundActivator.cs" />
@@ -67,18 +64,6 @@
     <Compile Include="Activation\IServiceLoader.cs" />
     <Compile Include="Activation\IActivatorGroup.cs" />
     <Compile Include="Activation\IActivationContext.cs" />
-    <Compile Include="Caching\HttpRequestScope.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Caching\HttpRequestScopeAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Caching\HttpSessionScope.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Caching\HttpSessionScopeAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Caching\IServiceScope.cs" />
     <Compile Include="Caching\ServiceScope.cs" />
     <Compile Include="Caching\ServiceScopeAttribute.cs" />

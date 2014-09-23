@@ -65,11 +65,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\HttpRequestScope.cs" />
+    <Compile Include="Caching\HttpRequestScopeAttribute.cs" />
+    <Compile Include="Caching\HttpSessionScope.cs" />
+    <Compile Include="Caching\HttpSessionScopeAttribute.cs" />
     <Compile Include="Registration\AssemblyScannerExtensions.cs" />
     <Compile Include="ControllerScanConvention.cs" />
     <Compile Include="Registration\ControllerBuilderExtensions.cs" />
     <Compile Include="InjectMeControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\FluentConfigurationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InjectMe\InjectMe.csproj">

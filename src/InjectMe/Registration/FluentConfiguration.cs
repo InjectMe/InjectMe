@@ -8,11 +8,6 @@ namespace InjectMe.Registration
         protected static readonly IServiceScope TransientScope = new TransientScope();
         protected static readonly IServiceScope SingletonScope = new SingletonScope();
 
-#if NET45
-        protected static readonly IServiceScope HttpRequestScope = new HttpRequestScope();
-        protected static readonly IServiceScope HttpSessionScope = new HttpSessionScope();
-#endif
-
         private readonly IContainerConfiguration _containerConfiguration;
         private IActivatorConfiguration _activatorConfiguration;
 
@@ -63,18 +58,6 @@ namespace InjectMe.Registration
             return configuration;
         }
 
-#if NET45
-        public IScopedActivatorConfiguration InHttpRequestScope()
-        {
-            return InScope(HttpRequestScope);
-        }
-
-        public IScopedActivatorConfiguration InHttpSessionScope()
-        {
-            return InScope(HttpSessionScope);
-        }
-#endif
-
         public IInstanceActivatorConfiguration UsingInstance(object instance)
         {
             var configuration = new InstanceActivatorConfiguration<object>(Identity, instance);
@@ -113,18 +96,6 @@ namespace InjectMe.Registration
 
             return configuration;
         }
-
-#if NET45
-        public new IScopedActivatorConfiguration<TService> InHttpRequestScope()
-        {
-            return InScope(HttpRequestScope);
-        }
-
-        public new IScopedActivatorConfiguration<TService> InHttpSessionScope()
-        {
-            return InScope(HttpSessionScope);
-        }
-#endif
 
         public IInstanceActivatorConfiguration<TService> UsingInstance(TService instance)
         {
