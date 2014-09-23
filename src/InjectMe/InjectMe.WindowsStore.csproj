@@ -168,7 +168,6 @@
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Extensions\ArrayExtensions.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
-    <Compile Include="Extensions\SerializationExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
