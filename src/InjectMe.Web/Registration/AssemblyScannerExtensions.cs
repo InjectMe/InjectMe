@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using InjectMe.Web;
 using System.Linq;
 using System.Reflection;
@@ -15,13 +17,32 @@ namespace InjectMe.Registration
 
         public static IAssemblyScanner ScanReferencedAssemblies(this IAssemblyScanner scanner)
         {
-            var assemblies = BuildManager.
-                GetReferencedAssemblies().
-                Cast<Assembly>();
+            var assemblies = GetReferencedAssemblies();
 
             scanner.ScanAssemblies(assemblies);
 
             return scanner;
+        }
+
+        public static IAssemblyScanner ScanReferencedAssemblies(this IAssemblyScanner scanner, Func<Assembly, bool> filter)
+        {
+            if (filter == null)
+                throw new ArgumentNullException("filter");
+
+            var assemblies =
+                GetReferencedAssemblies().
+                Where(filter);
+
+            scanner.ScanAssemblies(assemblies);
+
+            return scanner;
+        }
+
+        private static IEnumerable<Assembly> GetReferencedAssemblies()
+        {
+            return BuildManager.
+                GetReferencedAssemblies().
+                Cast<Assembly>();
         }
     }
 }
