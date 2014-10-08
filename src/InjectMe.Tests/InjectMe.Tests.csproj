@@ -62,6 +62,9 @@
     <Compile Include="Activation\ArrayActivationTests.cs" />
     <Compile Include="Activation\DefaultActivatorGroupTests.cs" />
     <Compile Include="Activation\LazyActivationTests.cs" />
+    <Compile Include="Activation\PrefixResolution\PrefixResolutionTests.cs" />
+    <Compile Include="Activation\PrefixResolution\PrefixBar.cs" />
+    <Compile Include="Activation\PrefixResolution\PrefixFoo.cs" />
     <Compile Include="Activation\ScopedActivationTests.cs" />
     <Compile Include="Activation\FuncActivationTests.cs" />
     <Compile Include="Activation\InstanceActivationTests.cs" />
