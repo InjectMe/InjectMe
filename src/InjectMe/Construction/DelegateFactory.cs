@@ -17,7 +17,7 @@ namespace InjectMe.Construction
             _factoryDelegate = factoryDelegate;
         }
 
-        public object CreateService(IActivationContext context)
+        public virtual object CreateService(IActivationContext context)
         {
             return _factoryDelegate(context);
         }
@@ -37,7 +37,7 @@ namespace InjectMe.Construction
             _factoryDelegate = factoryDelegate;
         }
 
-        public object CreateService(IActivationContext context)
+        public virtual object CreateService(IActivationContext context)
         {
             return _factoryDelegate(context);
         }

@@ -35,7 +35,7 @@ namespace InjectMe.Construction
             _factoryDelegate = factoryDelegate;
         }
 
-        public object CreateService(IActivationContext context)
+        public virtual object CreateService(IActivationContext context)
         {
             EnsureInitialized(context);
 
