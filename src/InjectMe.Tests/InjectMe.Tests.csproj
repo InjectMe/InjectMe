@@ -68,6 +68,7 @@
     <Compile Include="Activation\ServiceLoaderActivatorTests.cs" />
     <Compile Include="Activation\TransientHierarchicalActivationTests.cs" />
     <Compile Include="Activation\UnboundActivationTests.cs" />
+    <Compile Include="Diagnostics\ServiceExtensionTests.cs" />
     <Compile Include="Registration\AssemblyScanningTests.cs" />
     <Compile Include="ContainerTests.cs" />
     <Compile Include="Activation\PropertyInjectionTests.cs" />

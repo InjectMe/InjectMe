@@ -58,7 +58,7 @@ namespace InjectMe.Activation
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string DebuggerDisplay
         {
-            get { return ServiceType.ToDebugString(); }
+            get { return ServiceType.GetDisplayName(); }
         }
     }
 }

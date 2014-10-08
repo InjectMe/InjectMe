@@ -54,7 +54,7 @@ namespace InjectMe
         {
             get
             {
-                var result = ServiceType.ToDebugString();
+                var result = ServiceType.GetDisplayName();
 
                 if (ServiceName != null)
                 {

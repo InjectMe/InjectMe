@@ -15,7 +15,7 @@ namespace InjectMe
 
         private static string CreateMessage(Type classType)
         {
-            return string.Format("No valid constructor could be located for {0}.", classType.ToDebugString());
+            return string.Format("No valid constructor could be located for {0}.", classType.GetDisplayName());
         }
     }
 }

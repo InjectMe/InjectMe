@@ -8,14 +8,14 @@ namespace InjectMe.Diagnostics
 {
     public static class ServiceExtensions
     {
-        public static string ToDebugString(this Type type)
+        public static string GetDisplayName(this Type type)
         {
             var result = type.FullName;
-            var typeInfO = type.GetTypeInfo();
+            var typeInfo = type.GetTypeInfo();
 
-            if (typeInfO.IsGenericType)
+            if (typeInfo.IsGenericType)
             {
-                var arguments = GetGenericArguments(typeInfO);
+                var arguments = GetGenericArguments(typeInfo);
 
                 result = string.Format(
                     "{0}<{1}>",
@@ -38,7 +38,7 @@ namespace InjectMe.Diagnostics
             {
                 return typeInfo.
                     GenericTypeArguments.
-                    Select(a => a.ToDebugString());
+                    Select(a => a.GetDisplayName());
             }
         }
     }
