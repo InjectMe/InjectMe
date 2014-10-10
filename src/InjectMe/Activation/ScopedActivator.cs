@@ -9,8 +9,7 @@ namespace InjectMe.Activation
     /// </summary>
     /// <remarks>
     /// The scoped activator is used when InjectMe constructs a service.
-    /// </remarks>
-    /// <remarks>
+    /// 
     /// It contains an <see cref="IFactory"/>, which is responsible for constructing the service, and an <see cref="IServiceScope"/> which is responsible for caching the service.
     /// InjectMe comes with a <see cref="ConstructionFactory"/> which will create the service by invoking the most relevant constructor, and a <see cref="DelegateFactory"/> which leaves the construction to a delegate method.
     /// </remarks>
