@@ -9,7 +9,7 @@
     <projectUrl>http://www.injectme.net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Dependency injector</description>
-    <copyright>Copyright 2013 © Tobias Persson. All rights reserved.</copyright>
+    <copyright>Copyright 2014 © Tobias Persson. All rights reserved.</copyright>
     <tags>Dependency Injection</tags>
   </metadata>
   <files>

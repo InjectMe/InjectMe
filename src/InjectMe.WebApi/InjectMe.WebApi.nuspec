@@ -9,11 +9,11 @@
     <projectUrl>http://www.injectme.net</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Dependency injector</description>
-    <copyright>Copyright 2013 © Tobias Persson. All rights reserved.</copyright>
+    <copyright>Copyright 2014 © Tobias Persson. All rights reserved.</copyright>
     <tags>Dependency Injection</tags>
     <dependencies>
-      <dependency id="InjectMe.Web" version="[0.8,1.0)" />
-      <dependency id="Microsoft.AspNet.WebApi.WebHost" version="[4.0.20710.0, 5.2)" />
+      <dependency id="InjectMe" version="[0.8,1.0)" />
+      <dependency id="Microsoft.AspNet.WebApi.WebHost" version="[4.0.20710.0, 6.0)" />
     </dependencies>
   </metadata>
   <files>
